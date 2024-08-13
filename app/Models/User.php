@@ -9,7 +9,9 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    // @phpstan-ignore-next-line
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.

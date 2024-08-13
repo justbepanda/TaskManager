@@ -1,11 +1,17 @@
 {
-    "name": "laravel/laravel",
+    "name": "hexlet/code",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "justbepanda",
+            "email": "justbepanda@gmail.com"
+        }
+    ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9"
     },
@@ -15,7 +21,10 @@
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.0",
-        "phpunit/phpunit": "^11.0.1"
+        "phpunit/phpunit": "^11.0.1",
+        "squizlabs/php_codesniffer": "^3.10",
+        "phpstan/phpstan-phpunit": "^1.3",
+        "phpstan/extension-installer": "^1.3"
     },
     "autoload": {
         "psr-4": {
@@ -57,7 +66,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true
         }
     },
     "minimum-stability": "stable",
