@@ -19,11 +19,6 @@ jobs:
       - name: Install dependencies
         run: make install
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 20
-
       - name: Set up environment variables
         run: |
           echo "APP_ENV=local" >> .env
