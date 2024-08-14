@@ -1,5 +1,7 @@
 install:
 	composer install
+	npm install
+	npm run build
 test:
 	composer exec --verbose phpunit tests
 
