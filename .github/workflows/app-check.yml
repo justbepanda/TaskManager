@@ -19,6 +19,20 @@ jobs:
       - name: Install dependencies
         run: make install
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Run migrations
+        run: php artisan migrate --force
+
       - name: Set up environment variables
         run: |
           echo "APP_ENV=local" >> .env
