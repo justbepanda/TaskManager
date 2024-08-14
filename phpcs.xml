@@ -5,4 +5,12 @@
         <!-- Exclude the rule for line length -->
         <exclude name="Generic.Files.LineLength"/>
     </rule>
+    <!-- Исключение минифицированных файлов -->
+    <exclude-pattern>**/*.min.js</exclude-pattern>
+    <exclude-pattern>**/*.min.css</exclude-pattern>
+    <exclude-pattern>**/*.min.*</exclude-pattern>
+
+    <!-- Исключение файлов в определенной директории -->
+    <exclude-pattern>public/build/assets/*.js</exclude-pattern>
+    <exclude-pattern>public/build/assets/*.css</exclude-pattern>
 </ruleset>

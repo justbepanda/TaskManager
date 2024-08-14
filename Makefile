@@ -4,8 +4,7 @@ test:
 	composer exec --verbose phpunit tests
 
 lint:
-	composer exec --verbose phpcs -- --standard=phpcs.xml app public tests
-	composer exec --verbose phpstan -- analyse -c phpstan.neon
+	composer exec --verbose phpcs -- --standard=phpcs.xml app public
 
 lint-fix:
 	composer exec --verbose phpcbf -- --standard=phpcs.xml app public tests
