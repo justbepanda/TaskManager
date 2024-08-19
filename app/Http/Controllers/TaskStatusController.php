@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TaskStatus;
 use Illuminate\Http\Request;
 
 class TaskStatusController extends Controller
@@ -11,7 +12,8 @@ class TaskStatusController extends Controller
      */
     public function index()
     {
-        //
+        $task_statuses = TaskStatus::all();
+        return view('task_statuses.index', compact('task_statuses'));
     }
 
     /**
@@ -19,7 +21,7 @@ class TaskStatusController extends Controller
      */
     public function create()
     {
-        //
+        return view('task_statuses.create');
     }
 
     /**
@@ -27,7 +29,14 @@ class TaskStatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+        ]);
+
+        TaskStatus::create($validatedData);
+
+        flash('Status created successfully!')->success();
+        return redirect()->route('task_statuses.index')->with('success', 'Status created successfully.');
     }
 
     /**
@@ -35,7 +44,8 @@ class TaskStatusController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $taskStatus = TaskStatus::findOrFail($id);
+        return view('task_statuses.show', compact('taskStatus'));
     }
 
     /**
@@ -43,7 +53,8 @@ class TaskStatusController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $taskStatus = TaskStatus::findOrFail($id);
+        return view('task_statuses.edit', compact('taskStatus'));
     }
 
     /**
@@ -51,7 +62,17 @@ class TaskStatusController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|unique:task_statuses,name,' . $id . '|max:255',
+        ]);
+
+        $taskStatus = TaskStatus::findOrFail($id);
+
+        $taskStatus->name = $validatedData['name'];
+        $taskStatus->save();
+
+        flash('Status updated successfully!')->success();
+        return redirect()->route('task_statuses.index')->with('success', 'Status updated successfully.');
     }
 
     /**
@@ -59,6 +80,10 @@ class TaskStatusController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $taskStatus = TaskStatus::findOrFail($id);
+        $taskStatus->delete();
+
+        flash('Task deleted successfully!')->success();
+        return redirect()->route('task_statuses.index')->with('success', 'Task deleted successfully.');
     }
 }

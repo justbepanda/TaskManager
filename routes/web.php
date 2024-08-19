@@ -18,8 +18,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('task_statuses', TaskStatusController::class);
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/task_statuses/create', [TaskStatusController::class, 'create'])->name('task_statuses.create');
+    Route::post('/task_statuses', [TaskStatusController::class, 'store'])->name('task_statuses.store');
+
+    Route::get('/task_statuses/{id}/edit', [TaskStatusController::class, 'edit'])->name('task_statuses.edit');
+    Route::put('/task_statuses/{id}', [TaskStatusController::class, 'update'])->name('task_statuses.update');
+    Route::delete('/task_statuses/{id}', [TaskStatusController::class, 'destroy'])->name('task_statuses.destroy');
+});
+
+Route::get('/task_statuses', [TaskStatusController::class, 'index'])->name('task_statuses.index');
+Route::get('/task_statuses/{id}', [TaskStatusController::class, 'show'])->name('task_statuses.show');
 
 
 require __DIR__.'/auth.php';
