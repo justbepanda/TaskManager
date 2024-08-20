@@ -7,17 +7,17 @@
         ])
     @else
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-4 sm:rounded-lg">
-            <div class="relative p-4 text-sm text-white
+            <div class="relative p-4 text-sm sm:rounded-lg text-white
             @if ($message['level'] === 'success')
-                bg-green-500
+                bg-green-700
             @elseif ($message['level'] === 'error')
-                bg-red-500
+                bg-red-700
             @elseif ($message['level'] === 'warning')
-                bg-yellow-500
+                bg-yellow-700
             @else
-                bg-blue-500
+                bg-blue-700
             @endif
-            {{ $message['important'] ? 'border-l-4 border-yellow-500' : '' }}"
+            {{ $message['important'] ? 'border-l-4 border-yellow-700' : '' }}"
                  role="alert"
             >
                 @if ($message['important'])

@@ -30,12 +30,12 @@
                                 <td class="p-2">{{ $task_status->created_at }}</td>
                                 <td class="p-2">
 
-                                    <a href="{{ route('task_statuses.edit', $task_status) }}">Редактировать</a>
+                                    <a href="{{ route('task_statuses.edit', $task_status) }}">Edit</a>
                                     <form action="{{ route('task_statuses.destroy', $task_status) }}" method="POST"
-                                          style="display:inline;">
+                                          style="display:inline;" >
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit">Удалить</button>
+                                        <button type="submit">Delete</button>
                                     </form>
                                 </td>
                             </tr>
