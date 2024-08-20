@@ -31,7 +31,7 @@
                                 <td class="p-2">
 
                                     <a href="{{ route('task_statuses.edit', $task_status) }}">{{ __('task_statuses.edit') }}</a>
-                                    <form action="{{ route('task_statuses.destroy', $task_status) }}" data-confirm="{{ __('task_statuses.Are you sure you want to delete?') }}" method="POST"
+                                    <form action="{{ route('task_statuses.destroy', $task_status) }}" data-confirm="{{ __('task_statuses.are you sure you want to delete?') }}" method="POST"
                                           style="display:inline;" >
                                         @csrf
                                         @method('DELETE')
@@ -44,7 +44,7 @@
                         </tbody>
                     </table>
                     @else
-                        <div>{{ __('task_statuses.Task statuses is empty') }}<div>
+                        <div>{{ __('task_statuses.there are no task statuses') }}<div>
                     @endif
                 </div>
             </div>

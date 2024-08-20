@@ -4,12 +4,12 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    // @phpstan-ignore-next-line
     use HasFactory;
     use Notifiable;
 
@@ -45,5 +45,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function creator(): HasMany
+    {
+        return $this->hasMany('App\Models\Tasks', 'created_by_id');
+    }
+
+    public function tasks(): HasMany
+    {
+        return $this->hasMany('App\Models\Tasks', 'assigned_to_id');
     }
 }

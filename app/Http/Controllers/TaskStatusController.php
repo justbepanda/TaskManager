@@ -30,7 +30,7 @@ class TaskStatusController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|max:255',
+            'name' => 'required|unique:task_statuses,name|max:255',
         ]);
 
         TaskStatus::create($validatedData);
@@ -78,12 +78,17 @@ class TaskStatusController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $taskStatus = TaskStatus::findOrFail($id);
-        $taskStatus->delete();
 
-        flash(__('task_statuses.status deleted successfully!'))->success();
-        return redirect()->route('task_statuses.index')->with('success', 'Task deleted successfully.');
+        try {
+            $taskStatus->delete();
+            flash(__('task_statuses.status deleted successfully!'))->success();
+            return redirect()->route('task_statuses.index')->with('success', 'Task deleted successfully.');
+        } catch (\Exception $e) {
+            flash($e->getMessage())->error();
+            return redirect()->route('task_statuses.index')->with('error', $e->getMessage());
+        }
     }
 }
