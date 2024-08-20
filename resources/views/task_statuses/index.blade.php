@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Task statuses') }}
+            {{ __('task_statuses.task statuses') }}
         </h2>
     </x-slot>
 
@@ -10,16 +10,16 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <x-primary-link-button class="mb-3" :href="route('task_statuses.create')">
-                        {{ __('Create new task status') }}
+                        {{ __('task_statuses.create new task status') }}
                     </x-primary-link-button>
 
                     @if($task_statuses->isNotEmpty())
                     <table class="mt-4 w-full">
                         <thead class="border-b-2 border-solid border-black text-left ">
                         <tr>
-                            <th class="p-2">ID</th>
-                            <th class="p-2">Name</th>
-                            <th class="p-2">Created at</th>
+                            <th class="p-2">{{ __('task_statuses.id') }}</th>
+                            <th class="p-2">{{ __('task_statuses.name') }}</th>
+                            <th class="p-2">{{ __('task_statuses.created at') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -30,12 +30,12 @@
                                 <td class="p-2">{{ $task_status->created_at }}</td>
                                 <td class="p-2">
 
-                                    <a href="{{ route('task_statuses.edit', $task_status) }}">Edit</a>
-                                    <form action="{{ route('task_statuses.destroy', $task_status) }}" data-confirm="Are you sure you want to delete?" method="POST"
+                                    <a href="{{ route('task_statuses.edit', $task_status) }}">{{ __('task_statuses.edit') }}</a>
+                                    <form action="{{ route('task_statuses.destroy', $task_status) }}" data-confirm="{{ __('task_statuses.Are you sure you want to delete?') }}" method="POST"
                                           style="display:inline;" >
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit">Delete</button>
+                                        <button type="submit">{{ __('task_statuses.delete') }}</button>
                                     </form>
                                 </td>
                             </tr>
@@ -44,7 +44,7 @@
                         </tbody>
                     </table>
                     @else
-                        <div>Task statuses is empty<div>
+                        <div>{{ __('task_statuses.Task statuses is empty') }}<div>
                     @endif
                 </div>
             </div>
