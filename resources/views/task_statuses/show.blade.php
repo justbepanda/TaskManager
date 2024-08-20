@@ -29,7 +29,7 @@
                                 <td class="p-2">
 
                                     <a href="{{ route('task_statuses.edit', $taskStatus) }}">Edit</a>
-                                    <form action="{{ route('task_statuses.destroy', $taskStatus) }}" method="POST"
+                                    <form action="{{ route('task_statuses.destroy', $taskStatus) }}" data-confirm="Are you sure you want to delete?" method="POST"
                                           style="display:inline;">
                                         @csrf
                                         @method('DELETE')
