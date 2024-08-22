@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('task_statuses.task status') }} {{ $taskStatus->name }}
+            {{ __('task_statuses.task status') }}: {{ $taskStatus->name }}
         </h2>
     </x-slot>
 
@@ -23,7 +23,7 @@
                             <tr class="border-b border-dashed text-left">
                                 <td class="p-2">{{ $taskStatus->id }}</td>
                                 <td class="p-2"><a href="{{ route('task_statuses.show', $taskStatus) }}">{{ $taskStatus->name }}</a></td>
-                                <td class="p-2">{{ $taskStatus->created_at }}</td>
+                                <td class="p-2">{{ $taskStatus->created_at->format('d.m.Y') }}</td>
                                 <td class="p-2">
 
                                     <a href="{{ route('task_statuses.edit', $taskStatus) }}">{{ __('task_statuses.edit') }}</a>

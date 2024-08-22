@@ -36,7 +36,7 @@ class TaskStatusController extends Controller
         TaskStatus::create($validatedData);
 
         flash(__('task_statuses.status created successfully!'))->success();
-        return redirect()->route('task_statuses.index')->with('success', 'Status created successfully.');
+        return redirect()->route('task_statuses.index');
     }
 
     /**
@@ -72,7 +72,7 @@ class TaskStatusController extends Controller
         $taskStatus->save();
 
         flash(__('task_statuses.status updated successfully!'))->success();
-        return redirect()->route('task_statuses.index')->with('success', 'Status updated successfully.');
+        return redirect()->route('task_statuses.index');
     }
 
     /**
@@ -82,13 +82,18 @@ class TaskStatusController extends Controller
     {
         $taskStatus = TaskStatus::findOrFail($id);
 
+        if ($taskStatus->tasks()->exists()) {
+            flash(__('task_statuses.The status cannot be deleted because it is associated with tasks.'))->error();
+            return redirect()->route('task_statuses.index');
+        }
+
         try {
             $taskStatus->delete();
             flash(__('task_statuses.status deleted successfully!'))->success();
-            return redirect()->route('task_statuses.index')->with('success', 'Task deleted successfully.');
+            return redirect()->route('task_statuses.index');
         } catch (\Exception $e) {
-            flash($e->getMessage())->error();
-            return redirect()->route('task_statuses.index')->with('error', $e->getMessage());
+            flash(__('task_statuses.Error when deleting the task status: ') . $e->getMessage())->error();
+            return redirect()->route('task_statuses.index');
         }
     }
 }

@@ -9,7 +9,7 @@ return [
     'name' => 'Name',
     'create task status' => 'Create task status',
     'edit task status' => 'Edit task status',
-    'task statuses' => 'Task statuses',
+    'task statuses' => 'Statuses',
     'create new task status' => 'Create new task status',
     'id' => 'ID',
     'created at' => 'Created at',
@@ -19,4 +19,6 @@ return [
     'status created successfully!' => 'Status created successfully!',
     'status updated successfully!' => 'Status updated successfully!',
     'status deleted successfully!' => 'Status deleted successfully!',
+    'The status cannot be deleted because it is associated with tasks.' => 'The status cannot be deleted because it is associated with tasks.',
+    'Error when deleting the task status: ' => 'Error when deleting the task status: ',
 ];

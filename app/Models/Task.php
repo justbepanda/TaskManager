@@ -22,7 +22,7 @@ class Task extends Model
         'assigned_to_id'
     ];
 
-    public function assignedTo()
+    public function performer()
     {
         return $this->belongsTo(User::class, 'assigned_to_id');
     }

@@ -19,4 +19,8 @@ return [
     'task created successfully!' => 'Task created successfully!',
     'task updated successfully!' => 'Task updated successfully!',
     'task deleted successfully!' => 'Task deleted successfully!',
+    'description' => 'Description',
+    'status' => 'Status',
+    'assigned to' => 'Performer',
+    'Author' => 'Author'
 ];

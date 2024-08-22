@@ -27,7 +27,7 @@
                             <tr class="border-b border-dashed text-left">
                                 <td class="p-2">{{ $task_status->id }}</td>
                                 <td class="p-2"><a href="{{ route('task_statuses.show', $task_status) }}">{{ $task_status->name }}</a></td>
-                                <td class="p-2">{{ $task_status->created_at }}</td>
+                                <td class="p-2">{{ $task_status->created_at->format('d.m.Y') }}</td>
                                 <td class="p-2">
 
                                     <a href="{{ route('task_statuses.edit', $task_status) }}">{{ __('task_statuses.edit') }}</a>

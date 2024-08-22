@@ -18,6 +18,7 @@ class TaskStatusFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
+            'created_at' => $this->faker->dateTimeBetween('-1 years', 'now'),
         ];
     }
 }

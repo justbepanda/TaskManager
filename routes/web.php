@@ -34,15 +34,15 @@ Route::get('/task_statuses', [TaskStatusController::class, 'index'])->name('task
 Route::get('/task_statuses/{id}', [TaskStatusController::class, 'show'])->name('task_statuses.show');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/task/create', [TaskController::class, 'create'])->name('task.create');
-    Route::post('/task', [TaskController::class, 'store'])->name('task.store');
+    Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+    Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
 
-    Route::get('/task/{id}/edit', [TaskController::class, 'edit'])->name('task.edit');
-    Route::put('/task/{id}', [TaskController::class, 'update'])->name('task.update');
-    Route::delete('/task/{id}', [TaskController::class, 'destroy'])->name('task.destroy');
+    Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
+    Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('tasks.update');
+    Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 });
 
-Route::get('/task', [TaskController::class, 'index'])->name('task.index');
-Route::get('/task/{id}', [TaskController::class, 'show'])->name('task.show');
+Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('tasks.show');
 
 require __DIR__.'/auth.php';

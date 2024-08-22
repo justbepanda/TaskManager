@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\TaskStatus;
 use App\Models\User;
+use App\Models\Task;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 
@@ -82,6 +83,19 @@ class TaskStatusTest extends TestCase
 
         $response->assertStatus(302);
         $this->assertDatabaseMissing('task_statuses', ['id' => $taskStatus->id]);
+    }
+
+    public function test_task_status_cannot_be_deleted_if_it_has_related_tasks(): void
+    {
+        $user = User::factory()->create();
+        $taskStatus = TaskStatus::factory()->create();
+        $task = Task::factory()->create(['status_id' => $taskStatus->id]);
+
+        $response = $this->actingAs($user)->delete("/task_statuses/{$taskStatus->id}");
+
+        $response->assertRedirect(route('task_statuses.index'));
+        $response->assertSessionHas('flash_notification');
+        $this->assertEquals(__('task_statuses.The status cannot be deleted because it is associated with tasks.'), session('flash_notification')->first()->message);
     }
 
     public function test_name_is_required_to_create_task_status()
