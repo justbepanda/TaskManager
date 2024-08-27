@@ -30,22 +30,26 @@
                                 <tr class="border-b border-dashed text-left">
                                     <td class="p-2">{{ $task->id }}</td>
                                     <td class="p-2">{{ $task->status->name }}</td>
-                                    <td class="p-2"><x-link href="{{ route('tasks.show', $task) }}">{{ $task->name }}</x-link>
+                                    <td class="p-2">
+                                        <x-link href="{{ route('tasks.show', $task) }}">{{ $task->name }}</x-link>
                                     </td>
                                     <td class="p-2">{{ $task->creator->name }}</td>
                                     <td class="p-2">{{ $task->performer->name }}</td>
                                     <td class="p-2">{{ $task->created_at->format('d.m.Y') }}</td>
                                     <td class="p-2">
-
-                                        <a href="{{ route('tasks.edit', $task) }}">{{ __('tasks.edit') }}</a>
-                                        <form action="{{ route('tasks.destroy', $task) }}"
-                                              data-confirm="{{ __('tasks.Are you sure you want to delete?') }}"
-                                              method="POST"
-                                              style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit">{{ __('tasks.delete') }}</button>
-                                        </form>
+                                        @can('update', $task)
+                                            <a href="{{ route('tasks.edit', $task) }}">{{ __('tasks.edit') }}</a>
+                                        @endcan
+                                        @can('delete', $task)
+                                            <form action="{{ route('tasks.destroy', $task) }}"
+                                                  data-confirm="{{ __('tasks.Are you sure you want to delete?') }}"
+                                                  method="POST"
+                                                  style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit">{{ __('tasks.delete') }}</button>
+                                            </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

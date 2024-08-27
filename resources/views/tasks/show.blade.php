@@ -12,14 +12,20 @@
                     <div class="mb-3"><b>{{ __('tasks.name') }}:</b> {{ $task->name }}</div>
                     <div class="mb-3"><b>{{ __('tasks.description') }}:</b> {{ $task->description }}</div>
                     <div class="mb-3"><b>{{ __('tasks.assigned to') }}:</b> {{ $task->performer->name }}</div>
-                    <div class="mb-3"><b>{{ __('tasks.created at') }}:</b> {{ $task->created_at->format('d.m.Y') }}</div>
-                    <a href="{{ route('tasks.edit', $task) }}">{{ __('tasks.edit') }}</a>
-                    <form action="{{ route('tasks.destroy', $task) }}" data-confirm="{{ __('tasks.Are you sure you want to delete?') }}" method="POST"
-                          style="display:inline;" >
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">{{ __('tasks.delete') }}</button>
-                    </form>
+                    <div class="mb-3"><b>{{ __('tasks.created at') }}:</b> {{ $task->created_at->format('d.m.Y') }}
+                    </div>
+                    @can('update', $task)
+                        <a href="{{ route('tasks.edit', $task) }}">{{ __('tasks.edit') }}</a>
+                    @endcan
+                    @can('delete', $task)
+                        <form action="{{ route('tasks.destroy', $task) }}"
+                              data-confirm="{{ __('tasks.Are you sure you want to delete?') }}" method="POST"
+                              style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">{{ __('tasks.delete') }}</button>
+                        </form>
+                    @endcan
 
 
                 </div>

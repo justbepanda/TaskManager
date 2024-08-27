@@ -6,9 +6,11 @@ use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class TaskController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -64,6 +66,8 @@ class TaskController extends Controller
     public function edit(string $id)
     {
         $task = Task::findOrFail($id);
+        $this->authorize('update', $task);
+
         $statuses = TaskStatus::all();
         $users = User::all();
         return view('tasks.edit', compact('task', 'statuses', 'users'));
@@ -74,6 +78,9 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $task = Task::findOrFail($id);
+        $this->authorize('update', $task);
+
         $validatedData = $request->validate([
             'name' => 'string|max:255',
             'description' => 'nullable|string',
@@ -81,7 +88,6 @@ class TaskController extends Controller
             'assigned_to_id' => 'nullable',
         ]);
 
-        $task = Task::findOrFail($id);
 
         $task->update([
             'name' => $validatedData['name'] ?? $task->name,
@@ -99,10 +105,11 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        $Task = Task::findOrFail($id);
+        $task = Task::findOrFail($id);
+        $this->authorize('update', $task);
 
         try {
-            $Task->delete();
+            $task->delete();
             flash(__('tasks.task deleted successfully!'))->success();
             return redirect()->route('tasks.index');
         } catch (\Exception $e) {
