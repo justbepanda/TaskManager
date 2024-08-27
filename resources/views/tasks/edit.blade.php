@@ -10,7 +10,7 @@
                 <div class="p-6 text-gray-900">
                     <form action="{{ route('tasks.update', $task->id) }}" method="POST">
                         @csrf
-                        @method('PUT')
+                        @method('PATCH')
                         <!-- Name -->
                         <div class="mb-3">
                             <x-input-label for="name" :value="__('tasks.name')" />

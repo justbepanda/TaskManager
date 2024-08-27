@@ -37,7 +37,7 @@ class TaskTest extends TestCase
         User::factory()->create();
         $task = Task::factory()->create();
 
-        $response = $this->put("/tasks/{$task->id}", [
+        $response = $this->patch("/tasks/{$task->id}", [
             'name' => 'Update Task'
         ]);
 
@@ -66,25 +66,37 @@ class TaskTest extends TestCase
             'name' => 'Example Task',
             'status_id' => $taskStatus->id,
             'created_by_id' => $user->id,
+            'description' => 'Example task description',
+            'assigned_to_id' => $user->id,
         ]);
 
         $response->assertStatus(302);
-        $this->assertDatabaseHas('tasks', ['name' => 'Example Task']);
+        $this->assertDatabaseHas('tasks', [
+            'name' => 'Example Task',
+            'description' => 'Example task description',
+            'status_id' => $taskStatus->id,
+            'created_by_id' => $user->id,
+            'assigned_to_id' => $user->id
+        ]);
     }
 
     public function test_user_can_update_task(): void
     {
-        $user = User::factory()->create();
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
-        $task = Task::factory()->create(['status_id' => $taskStatus->id]);
+        $taskStatus2 = TaskStatus::factory()->create();
+        $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user1->id]);
 
-        $response = $this->actingAs($user)->put("/tasks/{$task->id}", [
+        $response = $this->actingAs($user1)->patch("/tasks/{$task->id}", [
             'name' => 'Updated task',
-            'status_id' => $taskStatus->id
+            'status_id' => $taskStatus2->id,
+            'description' => 'Updated task description',
+            'assigned_to_id' => $user2->id,
         ]);
 
         $response->assertStatus(302);
-        $this->assertDatabaseHas('tasks', ['id' => $task->id, 'name' => 'Updated task']);
+        $this->assertDatabaseHas('tasks', ['id' => $task->id, 'name' => 'Updated task', 'status_id' => $taskStatus2->id, 'description' => 'Updated task description', 'assigned_to_id' => $user2->id]);
     }
 
     public function test_user_can_delete_task(): void
@@ -105,7 +117,7 @@ class TaskTest extends TestCase
         $user2 = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
         $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user1->id]);
-        $response = $this->actingAs($user2)->put("/tasks/{$task->id}", [
+        $response = $this->actingAs($user2)->patch("/tasks/{$task->id}", [
             'name' => 'Updated task',
             'status_id' => $taskStatus->id
         ]);
