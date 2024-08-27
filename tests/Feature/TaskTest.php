@@ -11,7 +11,8 @@ use App\Models\User;
 
 class TaskTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     public function test_tasks_screen_can_be_rendered(): void
     {

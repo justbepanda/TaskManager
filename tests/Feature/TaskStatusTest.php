@@ -11,7 +11,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 
 class TaskStatusTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     public function test_task_statuses_screen_can_be_rendered(): void
     {

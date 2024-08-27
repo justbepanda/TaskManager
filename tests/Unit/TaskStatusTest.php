@@ -6,10 +6,8 @@ use Tests\TestCase;
 use App\Models\TaskStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-
 class TaskStatusTest extends TestCase
 {
-
     use RefreshDatabase;
 
     public function testTaskStatusHasName(): void
