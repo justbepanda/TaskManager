@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Unit;
+namespace Tests\Unit;
 
 use Tests\TestCase;
 use App\Models\TaskStatus;
