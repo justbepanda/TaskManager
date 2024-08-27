@@ -112,17 +112,14 @@ class TaskTest extends TestCase
         $this->assertDatabaseMissing('tasks', ['id' => $task->id]);
     }
 
-    public function test_user_cant_edit_task_if_he_is_not_the_creator(): void
+    public function test_user_cant_delete_task_if_he_is_not_the_creator(): void
     {
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
         $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user1->id]);
-        $response = $this->actingAs($user2)->patch("/tasks/{$task->id}", [
-            'name' => 'Updated task',
-            'status_id' => $taskStatus->id
-        ]);
+        $response = $this->actingAs($user2)->delete("/tasks/{$task->id}");
         $response->assertStatus(403);
-        $this->assertDatabaseMissing('tasks', ['id' => $task->id, 'name' => 'Updated task']);
+        $this->assertDatabaseHas('tasks', ['id' => $task->id]);
     }
 }

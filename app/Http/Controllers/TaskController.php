@@ -67,7 +67,6 @@ class TaskController extends Controller
     public function edit(string $id)
     {
         $task = Task::findOrFail($id);
-        $this->authorize('update', $task);
 
         $statuses = TaskStatus::all();
         $users = User::all();
@@ -80,7 +79,6 @@ class TaskController extends Controller
     public function update(Request $request, string $id)
     {
         $task = Task::findOrFail($id);
-        $this->authorize('update', $task);
 
         $validatedData = $request->validate([
             'name' => 'string|max:255',
@@ -107,7 +105,7 @@ class TaskController extends Controller
     public function destroy($id)
     {
         $task = Task::findOrFail($id);
-        $this->authorize('update', $task);
+        $this->authorize('delete', $task);
 
         try {
             $task->delete();

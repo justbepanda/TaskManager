@@ -37,7 +37,7 @@ class TaskPolicy
      */
     public function update(User $user, Task $task): bool
     {
-        return $task->created_by_id === $user->id;
+        return $user->id;
     }
 
     /**
