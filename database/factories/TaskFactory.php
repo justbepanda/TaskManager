@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Label;
 use App\Models\TaskStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Task;
@@ -28,5 +29,13 @@ class TaskFactory extends Factory
             'status_id' => $this->faker->randomElement(TaskStatus::all()),
             'created_at' => $this->faker->dateTimeBetween('-1 years', 'now'),
         ];
+    }
+
+    public function withLabels($labelCount = 3)
+    {
+        return $this->afterCreating(function (Task $task) use ($labelCount) {
+            $labels = Label::inRandomOrder()->take($labelCount)->pluck('id')->toArray();
+            $task->labels()->attach($labels);
+        });
     }
 }

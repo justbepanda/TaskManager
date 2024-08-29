@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         $this->call(TaskStatusSeeder::class);
         $this->call(UserSeeder::class);
-        Task::factory(25)->create();
         Label::factory(5)->create();
+        Task::factory(25)->withLabels(3)->create();
 
         User::factory()->create([
             'name' => 'Test User',
