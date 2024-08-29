@@ -8,7 +8,6 @@ use App\Models\Label;
 
 class LabelController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      */
