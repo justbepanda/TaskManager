@@ -22,5 +22,6 @@ return [
     'description' => 'Description',
     'status' => 'Status',
     'assigned to' => 'Performer',
-    'Author' => 'Author'
+    'Author' => 'Author',
+    'Labels' => 'Labels',
 ];

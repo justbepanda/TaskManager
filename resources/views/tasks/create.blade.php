@@ -47,6 +47,16 @@
                             </x-select>
                             <x-input-error :messages="$errors->get('assigned_to_id')" class="mt-2" />
                         </div>
+                        <div class="mb-3">
+                            <x-input-label for="labels[]" :value="__('tasks.Labels')" />
+                            <x-select-multiple id="labels[]" class="block mt-1 w-full" name="labels[]">
+                                <option value="" selected="selected"></option>
+                                @foreach ($labels as $label)
+                                    <option value="{{ $label->id }}" {{ old('labels[]') == $label->id ? 'selected' : '' }}>{{ $label->name }}</option>
+                                @endforeach
+                            </x-select-multiple>
+                            <x-input-error :messages="$errors->get('labels[]')" class="mt-2" />
+                        </div>
                         <input type="hidden" name="created_by_id" value="{{ auth()->user()->id }}">
                         <div class="flex items-center justify-end mt-4">
                             <x-primary-button class="ms-4">

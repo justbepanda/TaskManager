@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Label;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
@@ -29,7 +30,8 @@ class TaskController extends Controller
     {
         $statuses = TaskStatus::all();
         $users = User::all();
-        return view('tasks.create', compact('statuses', 'users'));
+        $labels = Label::all();
+        return view('tasks.create', compact('statuses', 'users', 'labels'));
     }
 
     /**
@@ -43,9 +45,12 @@ class TaskController extends Controller
             'status_id' => 'required|exists:task_statuses,id',
             'assigned_to_id' => 'nullable',
             'created_by_id' => 'required',
+            'labels' => 'nullable|array',
+            'labels.*' => 'exists:labels,id'
         ]);
 
-        Task::create($validatedData);
+        $task = Task::create($validatedData);
+        $task->labels()->attach($validatedData['labels'] ?? []);
 
         flash(__('tasks.task created successfully!'))->success();
         return redirect()->route('tasks.index');
@@ -56,7 +61,7 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        $task = Task::with('creator')->findOrFail($id);
+        $task = Task::with('creator', 'labels')->findOrFail($id);
 
         return view('tasks.show', compact('task'));
     }
@@ -67,10 +72,11 @@ class TaskController extends Controller
     public function edit(string $id)
     {
         $task = Task::findOrFail($id);
-
         $statuses = TaskStatus::all();
         $users = User::all();
-        return view('tasks.edit', compact('task', 'statuses', 'users'));
+        $labels = Label::all();
+
+        return view('tasks.edit', compact('task', 'statuses', 'users', 'labels'));
     }
 
     /**
@@ -85,6 +91,8 @@ class TaskController extends Controller
             'description' => 'nullable|string',
             'status_id' => 'exists:task_statuses,id',
             'assigned_to_id' => 'nullable',
+            'labels'  => 'nullable|array',
+            'labels.*' => 'exists:labels,id',
         ]);
 
 
@@ -94,6 +102,8 @@ class TaskController extends Controller
             'status_id' => $validatedData['status_id'] ?? $task->status_id,
             'assigned_to_id' => $validatedData['assigned_to_id'] ?? $task->assigned_to_id,
         ]);
+
+        $task->labels()->sync($validatedData['labels'] ?? []);
 
         flash(__('tasks.task updated successfully!'))->success();
         return redirect()->route('tasks.index');

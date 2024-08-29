@@ -18,7 +18,7 @@ class TaskFactory extends Factory
      */
     public function definition(): array
     {
-        $title = $this->faker->sentence(2);
+        $title = $this->faker->unique()->sentence(2);
 
         return [
             'name' => rtrim($title, '.'),

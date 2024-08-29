@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Label;
 use App\Models\User;
 use App\Models\Task;
 
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TaskStatusSeeder::class);
         $this->call(UserSeeder::class);
         Task::factory(25)->create();
+        Label::factory(5)->create();
 
         User::factory()->create([
             'name' => 'Test User',

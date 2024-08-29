@@ -22,6 +22,9 @@
                     <x-nav-link :href="route('task_statuses.index')" :active="request()->routeIs('task_statuses.index')">
                         {{ __('task_statuses.task statuses') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('labels.index')" :active="request()->routeIs('labels.index')">
+                        {{ __('labels.Labels') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -110,12 +113,12 @@
             <x-responsive-nav-link :href="route('task_statuses.index')" :active="request()->routeIs('task_statuses.index')">
                 {{ __('task_statuses.task statuses') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('labels.index')" :active="request()->routeIs('labels.index')">
+                {{ __('labels.Labels') }}
+            </x-responsive-nav-link>
         </div>
         @if (Route::has('login'))
             @auth
-
-
-
                 <!-- Responsive Settings Options -->
                 <div class="pt-4 pb-1 border-t border-gray-200">
                     <div class="px-4">
