@@ -91,7 +91,7 @@ class TaskController extends Controller
             'description' => 'nullable|string',
             'status_id' => 'exists:task_statuses,id',
             'assigned_to_id' => 'nullable',
-            'labels'  => 'nullable|array',
+            'labels' => 'nullable|array',
             'labels.*' => 'exists:labels,id',
         ]);
 
@@ -117,13 +117,9 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $this->authorize('delete', $task);
 
-        try {
-            $task->delete();
-            flash(__('tasks.task deleted successfully!'))->success();
-            return redirect()->route('tasks.index');
-        } catch (\Exception $e) {
-            flash($e->getMessage())->error();
-            return redirect()->route('tasks.index');
-        }
+        $task->delete();
+        flash(__('tasks.task deleted successfully!'))->success();
+        return redirect()->route('tasks.index');
+
     }
 }

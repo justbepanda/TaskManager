@@ -87,13 +87,8 @@ class TaskStatusController extends Controller
             return redirect()->route('task_statuses.index');
         }
 
-        try {
-            $taskStatus->delete();
-            flash(__('task_statuses.status deleted successfully!'))->success();
-            return redirect()->route('task_statuses.index');
-        } catch (\Exception $e) {
-            flash(__('task_statuses.Error when deleting the task status: ') . $e->getMessage())->error();
-            return redirect()->route('task_statuses.index');
-        }
+        $taskStatus->delete();
+        flash(__('task_statuses.status deleted successfully!'))->success();
+        return redirect()->route('task_statuses.index');
     }
 }

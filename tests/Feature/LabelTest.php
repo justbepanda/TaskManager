@@ -26,6 +26,23 @@ class LabelTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_label_create_page_can_be_rendered()
+    {
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->get("/labels/create");
+        $response->assertStatus(200);
+    }
+
+    public function test_label_edit_page_can_be_rendered()
+    {
+        $user = User::factory()->create();
+        $label = Label::factory()->create();
+        $response = $this->actingAs($user)->get("/labels/{$label->id}/edit");
+        $response->assertStatus(200);
+    }
+
+
+
     public function test_label_cant_be_create_by_quest()
     {
         $response = $this->post('labels', [

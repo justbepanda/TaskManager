@@ -19,6 +19,31 @@ class TaskTest extends TestCase
         $response = $this->get('/tasks');
         $response->assertStatus(200);
     }
+    public function test_task_single_screen_can_be_rendered(): void
+    {
+        TaskStatus::factory()->create();
+        User::factory()->create();
+        $task = Task::factory()->create();
+        $response = $this->get("/tasks/{$task->id}");
+        $response->assertStatus(200);
+    }
+
+    public function test_task_create_screen_can_be_rendered_for_user(): void
+    {
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->get("/tasks/create");
+        $response->assertStatus(200);
+    }
+
+    public function test_task_edit_screen_can_be_rendered_for_user(): void
+    {
+        TaskStatus::factory()->create();
+        $user = User::factory()->create();
+        $task = Task::factory()->create();
+        $response = $this->actingAs($user)->get("/tasks/{$task->id}/edit");
+        $response->assertStatus(200);
+    }
+
 
     public function test_guest_cannot_create_task(): void
     {

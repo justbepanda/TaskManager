@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLabelRequest;
 use App\Http\Requests\UpdateLabelRequest;
 use App\Models\Label;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class LabelController extends Controller
 {
-    use AuthorizesRequests;
 
     /**
      * Display a listing of the resource.
@@ -79,13 +77,8 @@ class LabelController extends Controller
             return redirect()->route('labels.index');
         }
 
-        try {
-            $label->delete();
-            flash(__('labels.Label deleted successfully!'))->success();
-            return redirect()->route('labels.index');
-        } catch (\Exception $e) {
-            flash(__('labels.Error when deleting the label: ') . $e->getMessage())->error();
-            return redirect()->route('labels.index');
-        }
+        $label->delete();
+        flash(__('labels.Label deleted successfully!'))->success();
+        return redirect()->route('labels.index');
     }
 }

@@ -20,6 +20,29 @@ class TaskStatusTest extends TestCase
         $response->assertStatus(200);
     }
 
+
+    public function test_task_status_single_screen_can_be_rendered(): void
+    {
+        $taskStatus = TaskStatus::factory()->create();
+        $response = $this->get("/task_statuses/{$taskStatus->id}");
+        $response->assertStatus(200);
+    }
+
+    public function test_task_status_create_screen_can_be_rendered(): void
+    {
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->get('/task_statuses/create');
+        $response->assertStatus(200);
+    }
+
+    public function test_task_status_edit_screen_can_be_rendered(): void
+    {
+        $taskStatus = TaskStatus::factory()->create();
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->get("/task_statuses/{$taskStatus->id}/edit");
+        $response->assertStatus(200);
+    }
+
     public function test_guest_cant_create_task_status(): void
     {
         $response = $this->post('task_statuses', [
