@@ -21,7 +21,7 @@ class Label extends Model
     public function delete()
     {
         if ($this->tasks()->count() > 0) {
-            throw new \Exception("Cannot delete status that has related tasks.");
+            throw new \Exception("Cannot delete label that has related tasks.");
         }
 
         return parent::delete();

@@ -3,6 +3,9 @@
 namespace Tests\Unit;
 
 use App\Models\Label;
+use App\Models\Task;
+use App\Models\TaskStatus;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -38,5 +41,21 @@ class LabelTest extends TestCase
             'name' => 'Updated Label',
             'description' => 'Updated Description',
         ]);
+    }
+
+    public function test_exception_delete_a_label_with_related_tasks()
+    {
+        $label = Label::factory()->create();
+        User::factory()->create();
+        TaskStatus::factory()->create();
+
+        $task = Task::factory()->create();
+
+        $label->tasks()->attach($task);
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("Cannot delete label that has related tasks.");
+
+        $label->delete();
     }
 }
