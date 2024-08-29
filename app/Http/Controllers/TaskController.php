@@ -8,6 +8,7 @@ use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TaskController extends Controller
 {
@@ -18,9 +19,18 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('creator')->paginate(15);
+        $tasks = QueryBuilder::for(Task::class)
+            ->allowedFilters(['status_id', 'created_by_id', 'assigned_to_id'])
+            ->with('creator')
+            ->paginate(15);
 
-        return view('tasks.index', compact('tasks'));
+
+        $taskStatuses = TaskStatus::all();
+        $users = User::all();
+
+//        $tasks = Task::with('creator')->paginate(15);
+
+        return view('tasks.index', compact('tasks', 'taskStatuses', 'users'));
     }
 
     /**
@@ -52,7 +62,7 @@ class TaskController extends Controller
         $task = Task::create($validatedData);
         $task->labels()->attach($validatedData['labels'] ?? []);
 
-        flash(__('tasks.task created successfully!'))->success();
+        flash(__('tasks.Task created successfully!'))->success();
         return redirect()->route('tasks.index');
     }
 
@@ -105,7 +115,7 @@ class TaskController extends Controller
 
         $task->labels()->sync($validatedData['labels'] ?? []);
 
-        flash(__('tasks.task updated successfully!'))->success();
+        flash(__('tasks.Task updated successfully!'))->success();
         return redirect()->route('tasks.index');
     }
 
@@ -118,7 +128,7 @@ class TaskController extends Controller
         $this->authorize('delete', $task);
 
         $task->delete();
-        flash(__('tasks.task deleted successfully!'))->success();
+        flash(__('tasks.Task deleted successfully!'))->success();
         return redirect()->route('tasks.index');
     }
 }

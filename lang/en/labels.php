@@ -11,7 +11,7 @@ return [
     'Edit task' => 'Edit label',
     'Labels' => 'Labels',
     'Create new label' => 'Create new label',
-    'Id' => 'ID',
+    'ID' => 'ID',
     'Created at' => 'Created at',
     'Are you sure you want to delete?' => 'Are you sure you want to delete?',
     'There are no labels' => 'There are no labels',

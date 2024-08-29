@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('tasks.create task') }}
+            {{ __('tasks.Create task') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -13,13 +13,13 @@
 
                         <!-- Name -->
                         <div class="mb-3">
-                            <x-input-label for="name" :value="__('tasks.name')" />
+                            <x-input-label for="name" :value="__('tasks.Name')" />
                             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
                         <!-- Description -->
                         <div class="mb-3">
-                            <x-input-label for="description" :value="__('tasks.description')" />
+                            <x-input-label for="description" :value="__('tasks.Description')" />
                             <x-textarea id="description" class="block mt-1 w-full" name="description"  autocomplete="description">
                                 {{ old('description') }}
                             </x-textarea>
@@ -27,7 +27,7 @@
                         </div>
                         <!-- Status_id -->
                         <div class="mb-3">
-                            <x-input-label for="status_id" :value="__('tasks.status')" />
+                            <x-input-label for="status_id" :value="__('tasks.Status')" />
                             <x-select id="status_id" class="block mt-1 w-full" name="status_id">
                                 <option value="" selected="selected"></option>
                                 @foreach ($statuses as $status)
@@ -38,7 +38,7 @@
                         </div>
                         <!-- Assigned_to_id -->
                         <div class="mb-3">
-                            <x-input-label for="assigned_to_id" :value="__('tasks.assigned to')" />
+                            <x-input-label for="assigned_to_id" :value="__('tasks.Assigned to')" />
                             <x-select id="assigned_to_id" class="block mt-1 w-full" name="assigned_to_id">
                                 <option value="" selected="selected"></option>
                                 @foreach ($users as $user)
@@ -60,7 +60,7 @@
                         <input type="hidden" name="created_by_id" value="{{ auth()->user()->id }}">
                         <div class="flex items-center justify-end mt-4">
                             <x-primary-button class="ms-4">
-                                {{ __('tasks.create') }}
+                                {{ __('tasks.Create') }}
                             </x-primary-button>
                         </div>
                     </form>

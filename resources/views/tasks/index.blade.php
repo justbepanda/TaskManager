@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('tasks.tasks') }}
+            {{ __('tasks.Tasks') }}
         </h2>
     </x-slot>
 
@@ -10,19 +10,59 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <x-primary-link-button class="mb-3" :href="route('tasks.create')">
-                        {{ __('tasks.create new task') }}
+                        {{ __('tasks.Create new task') }}
                     </x-primary-link-button>
 
                     @if($tasks->isNotEmpty())
+                        <form action="{{ route('tasks.index') }}" method="GET">
+                            <div class="filter w-full flex items-center">
+                                <div class="mr-3">
+                                    <x-select name="filter[status_id]" id="filter[status_id]" class="sm:text-sm">
+                                        <option value="">{{ __('tasks.Status') }}</option>
+                                        @foreach($taskStatuses as $status)
+                                            <option
+                                                value="{{ $status->id }}" {{ request('filter.status_id') == $status->id ? 'selected' : '' }}>
+                                                {{ $status->name }}
+                                            </option>
+                                        @endforeach
+                                    </x-select>
+                                </div>
+                                <div class="mr-3">
+                                    <x-select name="filter[created_by_id]" id="filter[created_by_id]" class="sm:text-sm">
+                                        <option value="">{{ __('tasks.Created by') }}</option>
+                                        @foreach($users as $user)
+                                            <option
+                                                value="{{ $user->id }}" {{ request('filter.created_by_id') == $user->id ? 'selected' : '' }}>
+                                                {{ $user->name }}
+                                            </option>
+                                        @endforeach
+                                    </x-select>
+                                </div>
+                                <div class="mr-3">
+                                    <x-select name="filter[assigned_to_id]" id="filter[assigned_to_id]" class="sm:text-sm">
+                                        <option value="">{{ __('tasks.Assigned to') }}</option>
+                                        @foreach($users as $user)
+                                            <option
+                                                value="{{ $user->id }}" {{ request('filter.assigned_to_id') == $user->id ? 'selected' : '' }}>
+                                                {{ $user->name }}
+                                            </option>
+                                        @endforeach
+                                    </x-select>
+                                </div>
+                                <div>
+                                    <x-secondary-button class="" type="submit">{{ __('tasks.Apply') }}</x-secondary-button>
+                                </div>
+                            </div>
+                        </form>
                         <table class="mt-4 w-full">
                             <thead class="border-b-2 border-solid border-black text-left ">
                             <tr>
-                                <th class="p-2">{{ __('tasks.id') }}</th>
-                                <th class="p-2">{{ __('tasks.status') }}</th>
-                                <th class="p-2">{{ __('tasks.name') }}</th>
+                                <th class="p-2">{{ __('tasks.ID') }}</th>
+                                <th class="p-2">{{ __('tasks.Status') }}</th>
+                                <th class="p-2">{{ __('tasks.Name') }}</th>
                                 <th class="p-2">{{ __('tasks.Author') }}</th>
-                                <th class="p-2">{{ __('tasks.assigned to') }}</th>
-                                <th class="p-2">{{ __('tasks.created at') }}</th>
+                                <th class="p-2">{{ __('tasks.Assigned to') }}</th>
+                                <th class="p-2">{{ __('tasks.Created at') }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -38,7 +78,7 @@
                                     <td class="p-2">{{ $task->created_at->format('d.m.Y') }}</td>
                                     <td class="p-2">
                                         @can('update', $task)
-                                            <a href="{{ route('tasks.edit', $task) }}">{{ __('tasks.edit') }}</a>
+                                            <a href="{{ route('tasks.edit', $task) }}">{{ __('tasks.Edit') }}</a>
                                         @endcan
                                         @can('delete', $task)
                                             <form action="{{ route('tasks.destroy', $task) }}"
@@ -47,7 +87,7 @@
                                                   style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit">{{ __('tasks.delete') }}</button>
+                                                <button type="submit">{{ __('tasks.Delete') }}</button>
                                             </form>
                                         @endcan
                                     </td>
@@ -61,7 +101,7 @@
                             {{ $tasks->links() }}
                         </div>
                     @else
-                        <div>{{ __('tasks.there are no tasks') }}
+                        <div>{{ __('tasks.There are no tasks') }}
                             <div>
                                 @endif
                             </div>

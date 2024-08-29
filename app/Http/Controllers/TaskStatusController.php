@@ -35,7 +35,7 @@ class TaskStatusController extends Controller
 
         TaskStatus::create($validatedData);
 
-        flash(__('task_statuses.status created successfully!'))->success();
+        flash(__('task_statuses.Status created successfully!'))->success();
         return redirect()->route('task_statuses.index');
     }
 
@@ -71,7 +71,7 @@ class TaskStatusController extends Controller
         $taskStatus->name = $validatedData['name'];
         $taskStatus->save();
 
-        flash(__('task_statuses.status updated successfully!'))->success();
+        flash(__('task_statuses.Status updated successfully!'))->success();
         return redirect()->route('task_statuses.index');
     }
 
@@ -88,7 +88,7 @@ class TaskStatusController extends Controller
         }
 
         $taskStatus->delete();
-        flash(__('task_statuses.status deleted successfully!'))->success();
+        flash(__('task_statuses.Status deleted successfully!'))->success();
         return redirect()->route('task_statuses.index');
     }
 }

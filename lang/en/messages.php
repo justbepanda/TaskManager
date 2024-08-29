@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'welcome' => 'Welcome!',
-    'dashboard' => 'Dashboard',
-    'create'    => 'Create',
+    'Welcome' => 'Welcome!',
+    'Dashboard' => 'Dashboard',
+    'Create'    => 'Create',
 ];

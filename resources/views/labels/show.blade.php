@@ -13,7 +13,7 @@
                         <table class="mt-4 w-full">
                             <thead class="border-b-2 border-solid border-black text-left ">
                             <tr>
-                                <th class="p-2">{{ __('labels.Id') }}</th>
+                                <th class="p-2">{{ __('labels.ID') }}</th>
                                 <th class="p-2">{{ __('labels.Name') }}</th>
                                 <th class="p-2">{{ __('labels.Description') }}</th>
                                 <th class="p-2">{{ __('labels.Created at') }}</th>
