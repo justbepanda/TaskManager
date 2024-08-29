@@ -30,6 +30,8 @@ jobs:
           DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
           DB_DATABASE: ${{ secrets.DATABASE }}
           APP_URL: ${{ secrets.APP_URL }}
+      - name: Debug environment
+        run: cat .env
 
       - name: Run lint
         run: make lint
