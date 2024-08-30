@@ -12,7 +12,6 @@
                     <div class="mb-3"><b>{{ __('tasks.Name') }}:</b> {{ $task->name }}</div>
                     <div class="mb-3"><b>{{ __('tasks.Description') }}:</b> {{ $task->description }}</div>
                     <div class="mb-3"><b>{{ __('tasks.Assigned to') }}:</b> {{ $task->performer->name }}</div>
-                    <div class="mb-3"><b>{{ __('tasks.Created at') }}:</b> {{ $task->created_at->format('d.m.Y') }}</div>
                     <div class="mb-3"><b>{{ __('tasks.Labels') }}:</b>
 
                         @foreach($task->labels as $label)
@@ -21,9 +20,10 @@
                         @endforeach
 
                     </div>
-                    @can('update', $task)
+
+                    @if (Route::has('login'))
                         <a href="{{ route('tasks.edit', $task) }}">{{ __('tasks.Edit') }}</a>
-                    @endcan
+                    @endif
                     @can('delete', $task)
                         <form action="{{ route('tasks.destroy', $task) }}"
                               data-confirm="{{ __('tasks.Are you sure you want to delete?') }}" method="POST"
@@ -33,8 +33,6 @@
                             <button type="submit">{{ __('tasks.Delete') }}</button>
                         </form>
                     @endcan
-
-
                 </div>
             </div>
         </div>

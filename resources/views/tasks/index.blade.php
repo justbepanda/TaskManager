@@ -63,6 +63,7 @@
                                 <th class="p-2">{{ __('tasks.Author') }}</th>
                                 <th class="p-2">{{ __('tasks.Assigned to') }}</th>
                                 <th class="p-2">{{ __('tasks.Created at') }}</th>
+                                <th class="p-2">{{ __('tasks.Actions') }}</th>
                             </tr>
                             </thead>
                             <tbody>

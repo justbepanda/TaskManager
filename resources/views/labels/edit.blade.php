@@ -13,7 +13,7 @@
                         @method('PUT')
                         <!-- Name -->
                         <div>
-                            <x-input-label for="name" :value="__('labels.name')" />
+                            <x-input-label for="name" :value="__('labels.Name')" />
                             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $label->name)" required autofocus autocomplete="name" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>

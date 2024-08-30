@@ -35,10 +35,10 @@ class TaskPolicy
 //    /**
 //     * Determine whether the user can update the model.
 //     */
-//    public function update(User $user, Task $task): bool
-//    {
-//        return $user->id;
-//    }
+    public function update(User $user, Task $task): bool
+    {
+        return $user->id;
+    }
 
     /**
      * Determine whether the user can delete the model.

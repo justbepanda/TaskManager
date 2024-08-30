@@ -32,10 +32,8 @@
                                     <td class="p-2">{{ $label->description }}</td>
                                     <td class="p-2">{{ $label->created_at->format('d.m.Y') }}</td>
                                     <td class="p-2">
-                                        @can('update', $label)
+                                        @if (Route::has('login'))
                                             <a href="{{ route('labels.edit', $label) }}">{{ __('labels.Edit') }}</a>
-                                        @endcan
-                                        @can('delete', $label)
                                             <form action="{{ route('labels.destroy', $label) }}"
                                                   data-confirm="{{ __('labels.Are you sure you want to delete?') }}"
                                                   method="POST"
@@ -44,7 +42,7 @@
                                                 @method('DELETE')
                                                 <button type="submit">{{ __('labels.Delete') }}</button>
                                             </form>
-                                        @endcan
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

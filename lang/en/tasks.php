@@ -25,5 +25,6 @@ return [
     'Created by' => 'Created by',
     'Author' => 'Author',
     'Labels' => 'Labels',
-    'Apply' => 'Apply'
+    'Apply' => 'Apply',
+    'Actions' => 'Actions',
 ];

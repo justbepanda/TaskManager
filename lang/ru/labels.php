@@ -3,12 +3,12 @@
 return [
     'Create' => 'Создать',
     'Delete' => 'Удалить',
-    'Edit' => 'Редактировать',
+    'Edit' => 'Изменить',
     'Show' => 'Показать',
     'Update' => 'Обновить',
     'Name' => 'Имя',
     'Create label' => 'Создать метку',
-    'Edit task' => 'Редактировать задачу',
+    'Edit label' => 'Редактировать метку',
     'Labels' => 'Метки',
     'Create new label' => 'Создать новую метку',
     'ID' => 'ID',
@@ -18,7 +18,7 @@ return [
     'The label cannot be deleted because it is associated with task.' => 'Метка не может быть удалена, так как она связана с задачей.',
     'Label' => 'Метка',
     'Label created successfully!' => 'Метка успешно создана!',
-    'Label updated successfully!' => 'Метка успешно обновлена!',
+    'Label updated successfully!' => 'Метка успешно изменена!',
     'Label deleted successfully!' => 'Метка успешно удалена!',
     'Description' => 'Описание',
 ];

@@ -3,14 +3,14 @@
 return [
     'Create' => 'Создать',
     'Delete' => 'Удалить',
-    'Edit' => 'Редактировать',
+    'Edit' => 'Изменить',
     'Show' => 'Показать',
     'Update' => 'Обновить',
     'Name' => 'Имя',
     'Create task' => 'Создать задачу',
     'Edit task' => 'Редактировать задачу',
     'Tasks' => 'Задачи',
-    'Create new task' => 'Создать новую задачу',
+    'Create new task' => 'Создать задачу',
     'ID' => 'ID',
     'Created at' => 'Дата создания',
     'Are you sure you want to delete?' => 'Вы уверены, что хотите удалить?',
@@ -26,4 +26,5 @@ return [
     'Author' => 'Автор',
     'Labels' => 'Метки',
     'Apply' => 'Применить',
+    'Actions' => 'Действия',
 ];
