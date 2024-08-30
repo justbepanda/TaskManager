@@ -57,7 +57,7 @@
                         <div class="mb-3">
                             <x-input-label for="labels[]" :value="__('tasks.Labels')"/>
                             <x-select-multiple id="labels[]" class="block mt-1 w-full" name="labels[]">
-                                <option value="" selected="selected"></option>
+
                                 @foreach ($labels as $label)
                                     <option value="{{ $label->id }}"
                                             @if(in_array($label->id, $task->labels->pluck('id')->toArray())) selected @endif>

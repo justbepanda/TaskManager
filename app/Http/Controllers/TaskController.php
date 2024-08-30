@@ -111,7 +111,9 @@ class TaskController extends Controller
         $task->fill($validatedData);
         $task->save();
 
-        $task->labels()->sync($validatedData['labels'] ?? []);
+        if (isset($validatedData['labels'])) {
+            $task->labels()->sync($validatedData['labels'] ?? []);
+        }
 
         flash(__('tasks.Task updated successfully!'))->success();
         return redirect()->route('tasks.index');
