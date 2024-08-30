@@ -10,7 +10,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.2'
           coverage: xdebug
           extensions: pdo, sqlite3, pdo_pgsql, xdebug
       - name: Install dependencies
