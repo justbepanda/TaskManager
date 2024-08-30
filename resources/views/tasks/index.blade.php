@@ -9,9 +9,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <x-primary-link-button class="mb-3" :href="route('tasks.create')">
-                        {{ __('tasks.Create new task') }}
-                    </x-primary-link-button>
+                    @if (Route::has('login'))
+                        <x-primary-link-button class="mb-3" :href="route('tasks.create')">
+                            {{ __('tasks.Create new task') }}
+                        </x-primary-link-button>
+                    @endif
 
                     @if($tasks->isNotEmpty())
                         <form action="{{ route('tasks.index') }}" method="GET">
@@ -28,7 +30,8 @@
                                     </x-select>
                                 </div>
                                 <div class="mr-3">
-                                    <x-select name="filter[created_by_id]" id="filter[created_by_id]" class="sm:text-sm">
+                                    <x-select name="filter[created_by_id]" id="filter[created_by_id]"
+                                              class="sm:text-sm">
                                         <option value="">{{ __('tasks.Created by') }}</option>
                                         @foreach($users as $user)
                                             <option
@@ -39,7 +42,8 @@
                                     </x-select>
                                 </div>
                                 <div class="mr-3">
-                                    <x-select name="filter[assigned_to_id]" id="filter[assigned_to_id]" class="sm:text-sm">
+                                    <x-select name="filter[assigned_to_id]" id="filter[assigned_to_id]"
+                                              class="sm:text-sm">
                                         <option value="">{{ __('tasks.Assigned to') }}</option>
                                         @foreach($users as $user)
                                             <option
@@ -50,7 +54,8 @@
                                     </x-select>
                                 </div>
                                 <div>
-                                    <x-secondary-button class="" type="submit">{{ __('tasks.Apply') }}</x-secondary-button>
+                                    <x-secondary-button class=""
+                                                        type="submit">{{ __('tasks.Apply') }}</x-secondary-button>
                                 </div>
                             </div>
                         </form>
