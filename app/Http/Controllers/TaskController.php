@@ -50,18 +50,16 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status_id' => 'required|exists:task_statuses,id',
-            'assigned_to_id' => 'nullable',
+            'name' => 'required|unique:tasks,name|max:255',
+            'status_id' => 'required',
             'created_by_id' => 'required',
-            'labels' => 'nullable|array',
-            'labels.*' => 'exists:labels,id'
+            'assigned_to_id' => 'nullable',
+            'description' => 'max:255',
+            'labels' => ''
         ]);
 
-        $task = new Task();
-        $task->fill($validatedData);
-        $task->save();
+        $task = Task::create($validatedData);
+
         $task->labels()->attach($validatedData['labels'] ?? []);
 
         flash(__('tasks.Task created successfully!'))->success();
