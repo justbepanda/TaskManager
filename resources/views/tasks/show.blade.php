@@ -11,7 +11,10 @@
                 <div class="p-6 text-gray-900">
                     <div class="mb-3"><b>{{ __('tasks.Name') }}:</b> {{ $task->name }}</div>
                     <div class="mb-3"><b>{{ __('tasks.Description') }}:</b> {{ $task->description }}</div>
-                    <div class="mb-3"><b>{{ __('tasks.Assigned to') }}:</b> {{ $task->performer->name }}</div>
+                    <div class="mb-3"><b>{{ __('tasks.Assigned to') }}:</b>
+                        @if( isset($task->performer))
+                            {{ $task->performer->name }}
+                        @endif</div>
                     <div class="mb-3"><b>{{ __('tasks.Labels') }}:</b>
 
                         @foreach($task->labels as $label)
