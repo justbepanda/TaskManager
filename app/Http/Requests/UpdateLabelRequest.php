@@ -30,7 +30,7 @@ class UpdateLabelRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.unique' => __('label.A label with that name already exists'),
+            'name.unique' => __('labels.A label with that name already exists'),
         ];
     }
 }

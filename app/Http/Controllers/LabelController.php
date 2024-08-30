@@ -49,8 +49,9 @@ class LabelController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Label $label)
+    public function edit(string $id)
     {
+        $label = Label::findOrFail($id);
         return view('labels.edit', compact('label'));
     }
 
