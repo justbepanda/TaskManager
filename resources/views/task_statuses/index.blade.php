@@ -9,11 +9,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    @if (Route::has('login'))
-                    <x-primary-link-button class="mb-3" :href="route('task_statuses.create')">
-                        {{ __('task_statuses.Create new task status') }}
-                    </x-primary-link-button>
-                    @endif
+                    @auth
+                        <x-primary-link-button class="mb-3" :href="route('task_statuses.create')">
+                            {{ __('task_statuses.Create new task status') }}
+                        </x-primary-link-button>
+                    @endauth
 
                     @if($task_statuses->isNotEmpty())
                         <table class="mt-4 w-full">
@@ -34,7 +34,7 @@
                                     <td class="p-2">{{ $task_status->created_at->format('d.m.Y') }}</td>
                                     <td class="p-2">
 
-                                        @if (Route::has('login'))
+                                        @endauth
                                             <a href="{{ route('task_statuses.edit', $task_status) }}">{{ __('task_statuses.Edit') }}</a>
 
 
@@ -46,7 +46,7 @@
                                                 @method('DELETE')
                                                 <button type="submit">{{ __('task_statuses.Delete') }}</button>
                                             </form>
-                                        @endif
+                                        @endauth
                                     </td>
                                 </tr>
                             @endforeach

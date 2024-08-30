@@ -9,11 +9,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    @if (Route::has('login'))
+                    @auth
                         <x-primary-link-button class="mb-3" :href="route('tasks.create')">
                             {{ __('tasks.Create new task') }}
                         </x-primary-link-button>
-                    @endif
+                    @endauth
 
                     @if($tasks->isNotEmpty())
                         <form action="{{ route('tasks.index') }}" method="GET">

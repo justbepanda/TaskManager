@@ -9,11 +9,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    @if (Route::has('login'))
-                    <x-primary-link-button class="mb-3" :href="route('labels.create')">
-                        {{ __('labels.Create new label') }}
-                    </x-primary-link-button>
-                    @endif
+                    @auth
+                        <x-primary-link-button class="mb-3" :href="route('labels.create')">
+                            {{ __('labels.Create new label') }}
+                        </x-primary-link-button>
+                    @endauth
 
                     @if($labels->isNotEmpty())
                         <table class="mt-4 w-full">
@@ -34,7 +34,7 @@
                                     <td class="p-2">{{ $label->description }}</td>
                                     <td class="p-2">{{ $label->created_at->format('d.m.Y') }}</td>
                                     <td class="p-2">
-                                        @if (Route::has('login'))
+                                        @auth
                                             <a href="{{ route('labels.edit', $label) }}">{{ __('labels.Edit') }}</a>
                                             <form action="{{ route('labels.destroy', $label) }}"
                                                   data-confirm="{{ __('labels.Are you sure you want to delete?') }}"
@@ -44,7 +44,7 @@
                                                 @method('DELETE')
                                                 <button type="submit">{{ __('labels.Delete') }}</button>
                                             </form>
-                                        @endif
+                                        @endauth
                                     </td>
                                 </tr>
                             @endforeach
