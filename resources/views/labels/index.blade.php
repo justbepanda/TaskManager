@@ -14,44 +14,51 @@
                     </x-primary-link-button>
 
                     @if($labels->isNotEmpty())
-                    <table class="mt-4 w-full">
-                        <thead class="border-b-2 border-solid border-black text-left ">
-                        <tr>
-                            <th class="p-2">{{ __('labels.ID') }}</th>
-                            <th class="p-2">{{ __('labels.Name') }}</th>
-                            <th class="p-2">{{ __('labels.Description') }}</th>
-                            <th class="p-2">{{ __('labels.Created at') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($labels as $label)
-                            <tr class="border-b border-dashed text-left">
-                                <td class="p-2">{{ $label->id }}</td>
-                                <td class="p-2"><a href="{{ route('labels.show', $label) }}">{{ $label->name }}</a></td>
-                                <td class="p-2">{{ $label->description }}</td>
-                                <td class="p-2">{{ $label->created_at->format('d.m.Y') }}</td>
-                                <td class="p-2">
-
-                                    <a href="{{ route('labels.edit', $label) }}">{{ __('labels.Edit') }}</a>
-                                    <form action="{{ route('labels.destroy', $label) }}" data-confirm="{{ __('labels.Are you sure you want to delete?') }}" method="POST"
-                                          style="display:inline;" >
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit">{{ __('labels.Delete') }}</button>
-                                    </form>
-                                </td>
+                        <table class="mt-4 w-full">
+                            <thead class="border-b-2 border-solid border-black text-left ">
+                            <tr>
+                                <th class="p-2">{{ __('labels.ID') }}</th>
+                                <th class="p-2">{{ __('labels.Name') }}</th>
+                                <th class="p-2">{{ __('labels.Description') }}</th>
+                                <th class="p-2">{{ __('labels.Created at') }}</th>
                             </tr>
-                        @endforeach
+                            </thead>
+                            <tbody>
+                            @foreach ($labels as $label)
+                                <tr class="border-b border-dashed text-left">
+                                    <td class="p-2">{{ $label->id }}</td>
+                                    <td class="p-2"><a href="{{ route('labels.show', $label) }}">{{ $label->name }}</a>
+                                    </td>
+                                    <td class="p-2">{{ $label->description }}</td>
+                                    <td class="p-2">{{ $label->created_at->format('d.m.Y') }}</td>
+                                    <td class="p-2">
+                                        @can('update', $label)
+                                            <a href="{{ route('labels.edit', $label) }}">{{ __('labels.Edit') }}</a>
+                                        @endcan
+                                        @can('delete', $label)
+                                            <form action="{{ route('labels.destroy', $label) }}"
+                                                  data-confirm="{{ __('labels.Are you sure you want to delete?') }}"
+                                                  method="POST"
+                                                  style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit">{{ __('labels.Delete') }}</button>
+                                            </form>
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @endforeach
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
                     @else
-                        <div>{{ __('labels.There are no labels') }}<div>
-                    @endif
+                        <div>{{ __('labels.There are no labels') }}
+                            <div>
+                                @endif
+                            </div>
+                        </div>
                 </div>
             </div>
-        </div>
-    </div>
 
 
 </x-app-layout>

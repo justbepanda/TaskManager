@@ -30,13 +30,19 @@
                                 <td class="p-2">{{ $task_status->created_at->format('d.m.Y') }}</td>
                                 <td class="p-2">
 
-                                    <a href="{{ route('task_statuses.edit', $task_status) }}">{{ __('task_statuses.Edit') }}</a>
-                                    <form action="{{ route('task_statuses.destroy', $task_status) }}" data-confirm="{{ __('task_statuses.Are you sure you want to delete?') }}" method="POST"
-                                          style="display:inline;" >
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit">{{ __('task_statuses.Delete') }}</button>
-                                    </form>
+                                    @can('update', $task_status)
+                                        <a href="{{ route('tasks_statuses.edit', $task_status) }}">{{ __('tasks_statuses.Edit') }}</a>
+                                    @endcan
+                                    @can('delete', $task_status)
+                                        <form action="{{ route('tasks_statuses.destroy', $task_status) }}"
+                                              data-confirm="{{ __('tasks_statuses.Are you sure you want to delete?') }}"
+                                              method="POST"
+                                              style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">{{ __('tasks_statuses.Delete') }}</button>
+                                        </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

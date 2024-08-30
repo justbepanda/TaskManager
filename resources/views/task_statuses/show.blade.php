@@ -25,14 +25,19 @@
                                 <td class="p-2"><a href="{{ route('task_statuses.show', $taskStatus) }}">{{ $taskStatus->name }}</a></td>
                                 <td class="p-2">{{ $taskStatus->created_at->format('d.m.Y') }}</td>
                                 <td class="p-2">
-
-                                    <a href="{{ route('task_statuses.edit', $taskStatus) }}">{{ __('task_statuses.edit') }}</a>
-                                    <form action="{{ route('task_statuses.destroy', $taskStatus) }}" data-confirm="{{ __('task_statuses.Are you sure you want to delete?') }}" method="POST"
-                                          style="display:inline;" >
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit">{{ __('task_statuses.delete') }}</button>
-                                    </form>
+                                    @can('update', $taskStatus)
+                                        <a href="{{ route('tasks_statuses.edit', $taskStatus) }}">{{ __('tasks_statuses.Edit') }}</a>
+                                    @endcan
+                                    @can('delete', $taskStatus)
+                                        <form action="{{ route('tasks_statuses.destroy', $taskStatus) }}"
+                                              data-confirm="{{ __('tasks_statuses.Are you sure you want to delete?') }}"
+                                              method="POST"
+                                              style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">{{ __('tasks_statuses.Delete') }}</button>
+                                        </form>
+                                    @endcan
                                 </td>
                             </tr>
 
