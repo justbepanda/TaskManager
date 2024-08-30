@@ -27,4 +27,5 @@ return [
     'Labels' => 'Labels',
     'Apply' => 'Apply',
     'Actions' => 'Actions',
+    'View task:' => 'View task:',
 ];

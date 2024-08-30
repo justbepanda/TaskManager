@@ -74,7 +74,7 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        $task = Task::with('creator', 'labels')->findOrFail($id);
+        $task = Task::with('creator')->findOrFail($id);
 
         return view('tasks.show', compact('task'));
     }

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('tasks.Task') }}: {{ $task->name }}
+            {{ __('tasks.View task') }} {{ $task->name }}
         </h2>
     </x-slot>
 
@@ -11,22 +11,25 @@
                 <div class="p-6 text-gray-900">
                     <div class="mb-3"><b>{{ __('tasks.Name') }}:</b> {{ $task->name }}</div>
                     <div class="mb-3"><b>{{ __('tasks.Description') }}:</b> {{ $task->description }}</div>
-                    <div class="mb-3"><b>{{ __('tasks.Assigned to') }}:</b>
-                        @if( isset($task->performer))
+                    <div class="mb-3"><b>{{ __('tasks.Status') }}:</b> {{ $task->status->name }}</div>
+
+                    @if( isset($task->performer))
+                        <div class="mb-3"><b>{{ __('tasks.Assigned to') }}:</b>
                             {{ $task->performer->name }}
-                        @endif</div>
+                        </div>
+                    @endif
                     <div class="mb-3"><b>{{ __('tasks.Labels') }}:</b>
-
-                        @foreach($task->labels as $label)
-                            <span
-                                class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">{{ $label->name }}</span>
-                        @endforeach
-
+                        @if( isset($task->labels))
+                            @foreach($task->labels as $label)
+                                <span
+                                    class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">{{ $label->name }}</span>
+                            @endforeach
+                        @endif
                     </div>
 
-                    @if (Route::has('login'))
+                    @auth
                         <a href="{{ route('tasks.edit', $task) }}">{{ __('tasks.Edit') }}</a>
-                    @endif
+                    @endauth
                     @can('delete', $task)
                         <form action="{{ route('tasks.destroy', $task) }}"
                               data-confirm="{{ __('tasks.Are you sure you want to delete?') }}" method="POST"
