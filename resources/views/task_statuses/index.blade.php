@@ -34,7 +34,7 @@
                                     <td class="p-2">{{ $task_status->created_at->format('d.m.Y') }}</td>
                                     <td class="p-2">
 
-                                        @endauth
+                                        @auth
                                             <a href="{{ route('task_statuses.edit', $task_status) }}">{{ __('task_statuses.Edit') }}</a>
 
 
