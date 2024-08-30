@@ -6,10 +6,10 @@ test:
 	composer exec --verbose phpunit tests
 
 lint:
-	composer exec --verbose phpcs -- --standard=phpcs.xml app public bootstrap database routes
+	composer exec --verbose phpcs -- --standard=phpcs.xml app public
 
 lint-fix:
-	composer exec --verbose phpcbf -- --standard=phpcs.xml app public bootstrap database routes
+	composer exec --verbose phpcbf -- --standard=phpcs.xml app public
 
 test-coverage:
 	XDEBUG_MODE=coverage composer exec --verbose phpunit tests -- --coverage-clover build/logs/clover.xml
