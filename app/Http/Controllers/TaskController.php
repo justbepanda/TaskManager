@@ -6,6 +6,7 @@ use App\Models\Label;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -64,7 +65,7 @@ class TaskController extends Controller
             'labels' => ''
         ]);
 
-        $validatedData['created_by_id'] = $request->user()->id;
+        $validatedData['created_by_id'] = auth()->id();
 
         $task = Task::create($validatedData);
 
@@ -128,8 +129,9 @@ class TaskController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @throws AuthorizationException
      */
-    public function destroy($id)
+    public function destroy(string $id)
     {
         $task = Task::findOrFail($id);
         $this->authorize('delete', $task);

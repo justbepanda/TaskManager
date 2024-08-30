@@ -22,17 +22,17 @@ class Task extends Model
         'assigned_to_id'
     ];
 
-    public function performer()
+    public function performer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_to_id');
     }
 
-    public function creator()
+    public function creator(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by_id');
     }
 
-    public function status()
+    public function status(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(TaskStatus::class, 'status_id');
     }
