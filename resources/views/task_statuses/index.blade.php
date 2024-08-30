@@ -15,7 +15,7 @@
                         </x-primary-link-button>
                     @endauth
 
-                    @if($task_statuses->isNotEmpty())
+
                         <table class="mt-4 w-full">
                             <thead class="border-b-2 border-solid border-black text-left ">
                             <tr>
@@ -61,12 +61,6 @@
 
                             </tbody>
                         </table>
-                    @else
-                        <div>{{ __('task_statuses.There are no task statuses') }}
-                            <div>
-                                @endif
-                            </div>
-                        </div>
                 </div>
             </div>
 

@@ -15,7 +15,7 @@
                         </x-primary-link-button>
                     @endauth
 
-                    @if($tasks->isNotEmpty())
+
                         <form action="{{ route('tasks.index') }}" method="GET">
                             <div class="filter w-full flex items-center">
                                 <div class="mr-3">
@@ -123,12 +123,6 @@
                         <!-- Пагинация -->
                         <div class="mt-3">
                             {{ $tasks->links() }}
-                        </div>
-                    @else
-                        <div>{{ __('tasks.There are no tasks') }}
-                            <div>
-                                @endif
-                            </div>
                         </div>
                 </div>
             </div>
