@@ -6,5 +6,5 @@ return [
     'Login' => 'Вход',
     'Register' => 'Регистрация',
     'Profile' => 'Профиль',
-    'Logout' => 'Выход',
+    'Log Out' => 'Выход',
 ];
