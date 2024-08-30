@@ -43,7 +43,7 @@ class LabelTest extends TestCase
 
 
 
-    public function test_label_cant_be_create_by_quest(): void
+    public function testLabelCantBeCreateByQuest(): void
     {
         $response = $this->post('labels', [
             'name' => 'test label',
@@ -55,7 +55,7 @@ class LabelTest extends TestCase
         $this->assertDatabaseMissing('labels', ['name' => 'test label']);
     }
 
-    public function test_label_cant_be_deleted_by_quest(): void
+    public function testLabelCantBeDeletedByQuest(): void
     {
         $label = Label::factory()->create();
         $response = $this->delete("/labels/{$label->id}");

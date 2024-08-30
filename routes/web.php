@@ -60,4 +60,4 @@ Route::get('/tasks/{id}', [TaskController::class, 'show'])->name('tasks.show');
 Route::get('/labels', [LabelController::class, 'index'])->name('labels.index');
 Route::get('/labels/{label}', [LabelController::class, 'show'])->name('labels.show');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
