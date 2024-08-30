@@ -32,7 +32,7 @@
                             <div class="mr-3">
                                 <x-select name="filter[created_by_id]" id="filter[created_by_id]"
                                           class="sm:text-sm">
-                                    <option value="">{{ __('tasks.Created by') }}</option>
+                                    <option value="">{{ __('tasks.Author') }}</option>
                                     @foreach($users as $user)
                                         <option
                                             value="{{ $user->id }}" {{ request('filter.created_by_id') == $user->id ? 'selected' : '' }}>
