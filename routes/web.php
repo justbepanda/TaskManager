@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/task_statuses/{id}/edit', [TaskStatusController::class, 'edit'])->name('task_statuses.edit');
     Route::put('/task_statuses/{id}', [TaskStatusController::class, 'update'])->name('task_statuses.update');
-    Route::delete('/task_statuses/{id}', [TaskStatusController::class, 'destroy'])->name('task_statuses.destroy');
+    Route::delete('/task_statuses/{task_status}', [TaskStatusController::class, 'destroy'])->name('task_statuses.destroy');
 
     // tasks
     Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');

@@ -38,14 +38,22 @@
                                             <a href="{{ route('task_statuses.edit', $task_status) }}">{{ __('task_statuses.Edit') }}</a>
 
 
-                                            <form action="{{ route('task_statuses.destroy', $task_status) }}"
-                                                  data-confirm="{{ __('task_statuses.Are you sure you want to delete?') }}"
+                                            <!-- Измененная форма -->
+                                            <form id="delete-form-{{ $task_status->id }}"
+                                                  action="{{ route('task_statuses.destroy', $task_status) }}"
                                                   method="POST"
-                                                  style="display:inline;">
+                                                  style="display:none;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit">{{ __('task_statuses.Delete') }}</button>
                                             </form>
+
+                                            <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $task_status->id }}').submit();"
+                                               data-confirm="{{ __('task_statuses.Are you sure you want to delete?') }}"
+                                               class="delete-link">
+                                                {{ __('task_statuses.Delete') }}
+                                            </a>
+
+
                                         @endauth
                                     </td>
                                 </tr>

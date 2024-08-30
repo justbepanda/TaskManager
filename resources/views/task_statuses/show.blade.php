@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('task_statuses.task status') }}: {{ $taskStatus->name }}
+            {{ __('task_statuses.Task status') }}: {{ $taskStatus->name }}
         </h2>
     </x-slot>
 
@@ -13,9 +13,9 @@
                         <table class="mt-4 w-full">
                             <thead class="border-b-2 border-solid border-black text-left ">
                             <tr>
-                                <th class="p-2">{{ __('task_statuses.id') }}</th>
-                                <th class="p-2">{{ __('task_statuses.name') }}</th>
-                                <th class="p-2">{{ __('task_statuses.created at') }}</th>
+                                <th class="p-2">{{ __('task_statuses.ID') }}</th>
+                                <th class="p-2">{{ __('task_statuses.Name') }}</th>
+                                <th class="p-2">{{ __('task_statuses.Created at') }}</th>
                             </tr>
                             </thead>
                             <tbody>
