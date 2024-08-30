@@ -13,14 +13,14 @@
                         @method('PATCH')
                         <!-- Name -->
                         <div class="mb-3">
-                            <x-input-label for="name" :value="__('tasks.name')"/>
+                            <x-input-label for="name" :value="__('tasks.Name')"/>
                             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
                                           :value="old('name', $task->name)" autofocus autocomplete="name"/>
                             <x-input-error :messages="$errors->get('name')" class="mt-2"/>
                         </div>
                         <!-- Description -->
                         <div class="mb-3">
-                            <x-input-label for="description" :value="__('tasks.description')"/>
+                            <x-input-label for="description" :value="__('tasks.Description')"/>
                             <x-textarea id="description" class="block mt-1 w-full" name="description"
                                         autocomplete="description">
                                 {{ old('description', $task->description) }}
@@ -30,7 +30,7 @@
                         </div>
                         <!-- Status_id -->
                         <div class="mb-3">
-                            <x-input-label for="status_id" :value="__('tasks.status')"/>
+                            <x-input-label for="status_id" :value="__('tasks.Status')"/>
                             <x-select id="status_id" class="block mt-1 w-full" name="status_id">
                                 <option value="" selected="selected"></option>
                                 @foreach ($statuses as $status)
@@ -44,7 +44,7 @@
                         </div>
                         <!-- Assigned_to_id -->
                         <div class="mb-3">
-                            <x-input-label for="assigned_to_id" :value="__('tasks.assigned to')"/>
+                            <x-input-label for="assigned_to_id" :value="__('tasks.Assigned to')"/>
                             <x-select id="assigned_to_id" class="block mt-1 w-full" name="assigned_to_id">
                                 <option value="" selected="selected"></option>
                                 @foreach ($users as $user)

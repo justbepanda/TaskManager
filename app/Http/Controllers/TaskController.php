@@ -104,17 +104,12 @@ class TaskController extends Controller
             'description' => 'nullable|string',
             'status_id' => 'exists:task_statuses,id',
             'assigned_to_id' => 'nullable',
-            'labels' => 'nullable|array',
-            'labels.*' => 'exists:labels,id',
+            'labels' => '',
         ]);
 
 
-        $task->update([
-            'name' => $validatedData['name'] ?? $task->name,
-            'description' => $validatedData['description'] ?? $task->description,
-            'status_id' => $validatedData['status_id'] ?? $task->status_id,
-            'assigned_to_id' => $validatedData['assigned_to_id'] ?? $task->assigned_to_id,
-        ]);
+        $task->fill($validatedData);
+        $task->save();
 
         $task->labels()->sync($validatedData['labels'] ?? []);
 
