@@ -59,7 +59,9 @@ class TaskController extends Controller
             'labels.*' => 'exists:labels,id'
         ]);
 
-        $task = Task::create($validatedData);
+        $task = new Task();
+        $task->fill($validatedData);
+        $task->save();
         $task->labels()->attach($validatedData['labels'] ?? []);
 
         flash(__('tasks.Task created successfully!'))->success();

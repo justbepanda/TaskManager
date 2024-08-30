@@ -19,10 +19,9 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by_id');
             $table->unsignedBigInteger('assigned_to_id')->nullable();
             $table->timestamps();
-
-            $table->foreign('status_id')->references('id')->on('task_statuses')->onDelete('cascade');
-            $table->foreign('created_by_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('assigned_to_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('status_id')->references('id')->on('task_statuses');
+            $table->foreign('created_by_id')->references('id')->on('users');
+            $table->foreign('assigned_to_id')->references('id')->on('users');
         });
     }
 
