@@ -21,6 +21,7 @@ class ProfileTest extends TestCase
         $response->assertOk();
     }
 
+
     public function testProfileInformationCanBeUpdated(): void
     {
         $user = User::factory()->create();

@@ -78,7 +78,7 @@ class TaskStatusController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(string $id)
     {
         $taskStatus = TaskStatus::findOrFail($id);
 

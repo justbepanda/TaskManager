@@ -12,6 +12,18 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
+
+/**
+ * App\Models\Task
+ *
+ * @property int $id
+ * @property string $name
+ * @property int|null $status_id
+ * @property int|null $created_by_id
+ * @property int|null $assigned_to_id
+ * @property string|null $description
+ */
+
 class TaskController extends Controller
 {
     use AuthorizesRequests;
