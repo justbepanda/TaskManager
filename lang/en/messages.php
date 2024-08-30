@@ -3,5 +3,7 @@
 return [
     'Welcome' => 'Welcome!',
     'Dashboard' => 'Dashboard',
-    'Create'    => 'Create',
+    'Create' => 'Create',
+    'Login' => 'Login',
+    'Register' => 'Register',
 ];
