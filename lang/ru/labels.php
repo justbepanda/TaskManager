@@ -10,7 +10,7 @@ return [
     'Create label' => 'Создать метку',
     'Edit label' => 'Редактировать метку',
     'Labels' => 'Метки',
-    'Create new label' => 'Создать новую метку',
+    'Create new label' => 'Создать метку',
     'ID' => 'ID',
     'Created at' => 'Дата создания',
     'Are you sure you want to delete?' => 'Вы уверены, что хотите удалить?',

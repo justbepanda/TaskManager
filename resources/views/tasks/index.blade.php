@@ -87,14 +87,27 @@
                                             <a href="{{ route('tasks.edit', $task) }}">{{ __('tasks.Edit') }}</a>
                                         @endcan
                                         @can('delete', $task)
-                                            <form action="{{ route('tasks.destroy', $task) }}"
-                                                  data-confirm="{{ __('tasks.Are you sure you want to delete?') }}"
-                                                  method="POST"
-                                                  style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit">{{ __('tasks.Delete') }}</button>
-                                            </form>
+{{--                                            <form action="{{ route('tasks.destroy', $task) }}"--}}
+{{--                                                  data-confirm="{{ __('tasks.Are you sure you want to delete?') }}"--}}
+{{--                                                  method="POST"--}}
+{{--                                                  style="display:inline;">--}}
+{{--                                                @csrf--}}
+{{--                                                @method('DELETE')--}}
+{{--                                                <button type="submit">{{ __('tasks.Delete') }}</button>--}}
+{{--                                            </form>--}}
+                                                <form id="delete-form-{{ $task->id }}"
+                                                      action="{{ route('tasks.destroy', $task) }}"
+                                                      method="POST"
+                                                      style="display:none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+
+                                                <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $task->id }}').submit();"
+                                                   data-confirm="{{ __('tasks.Are you sure you want to delete?') }}"
+                                                   class="delete-link">
+                                                    {{ __('tasks.Delete') }}
+                                                </a>
                                         @endcan
                                     </td>
                                 </tr>

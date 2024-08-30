@@ -10,12 +10,21 @@
                 <div class="p-6 text-gray-900">
                     <form action="{{ route('labels.update', $label->id) }}" method="POST">
                         @csrf
-                        @method('PUT')
+                        @method('PATCH')
                         <!-- Name -->
-                        <div>
+                        <div class="mb-3">
                             <x-input-label for="name" :value="__('labels.Name')" />
-                            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $label->name)" required autofocus autocomplete="name" />
+                            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $label->name)" autofocus autocomplete="name" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3">
+                            <x-input-label for="description" :value="__('labels.Description')" />
+                            <x-textarea id="description" class="block mt-1 w-full" name="description" autocomplete="description">
+                                {{ old('description', $label->description) }}
+                            </x-textarea>
+                            <x-input-error :messages="$errors->get('description')" class="mt-2" />
                         </div>
 
                         <div class="flex items-center justify-end mt-4">

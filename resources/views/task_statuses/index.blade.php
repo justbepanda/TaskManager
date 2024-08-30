@@ -62,7 +62,7 @@
                             </tbody>
                         </table>
                     @else
-                        <div>{{ __('Task_statuses.there are no task statuses') }}
+                        <div>{{ __('task_statuses.There are no task statuses') }}
                             <div>
                                 @endif
                             </div>

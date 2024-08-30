@@ -15,7 +15,7 @@
                         <div class="mb-3">
                             <x-input-label for="name" :value="__('tasks.name')"/>
                             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
-                                          :value="old('name', $task->name)" required autofocus autocomplete="name"/>
+                                          :value="old('name', $task->name)" autofocus autocomplete="name"/>
                             <x-input-error :messages="$errors->get('name')" class="mt-2"/>
                         </div>
                         <!-- Description -->

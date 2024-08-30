@@ -36,14 +36,19 @@
                                     <td class="p-2">
                                         @auth
                                             <a href="{{ route('labels.edit', $label) }}">{{ __('labels.Edit') }}</a>
-                                            <form action="{{ route('labels.destroy', $label) }}"
-                                                  data-confirm="{{ __('labels.Are you sure you want to delete?') }}"
+                                            <form id="delete-form-{{ $label->id }}"
+                                                  action="{{ route('labels.destroy', $label) }}"
                                                   method="POST"
-                                                  style="display:inline;">
+                                                  style="display:none;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit">{{ __('labels.Delete') }}</button>
                                             </form>
+
+                                            <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $label->id }}').submit();"
+                                               data-confirm="{{ __('label.Are you sure you want to delete?') }}"
+                                               class="delete-link">
+                                                {{ __('labels.Delete') }}
+                                            </a>
                                         @endauth
                                     </td>
                                 </tr>
