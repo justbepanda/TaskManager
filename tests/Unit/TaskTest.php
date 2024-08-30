@@ -12,7 +12,7 @@ class TaskTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_performer()
+    public function testPerformer(): void
     {
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
@@ -22,7 +22,7 @@ class TaskTest extends TestCase
         $this->assertEquals($user->id, $task->performer->id);
     }
 
-    public function test_creator()
+    public function testCreator(): void
     {
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
@@ -32,7 +32,7 @@ class TaskTest extends TestCase
         $this->assertEquals($user->id, $task->creator->id);
     }
 
-    public function test_status()
+    public function testStatus(): void
     {
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
@@ -42,7 +42,7 @@ class TaskTest extends TestCase
         $this->assertEquals($user->id, $task->status->id);
     }
 
-    public function test_task_can_be_created()
+    public function testTaskCanBeCreated(): void
     {
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
@@ -63,7 +63,7 @@ class TaskTest extends TestCase
         ]);
     }
 
-    public function test_task_can_be_updated()
+    public function testTaskCanBeUpdated(): void
     {
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();

@@ -12,7 +12,7 @@ class AuthServiceProviderTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_it_registers_task_policy()
+    public function testItRegistersTaskPolicy(): void
     {
         $provider = new \App\Providers\AuthServiceProvider($this->app);
 

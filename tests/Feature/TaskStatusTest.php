@@ -14,28 +14,28 @@ class TaskStatusTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    public function test_task_statuses_screen_can_be_rendered(): void
+    public function testTaskStatusesScreenCanBeRendered(): void
     {
         $response = $this->get('/task_statuses');
         $response->assertStatus(200);
     }
 
 
-    public function test_task_status_single_screen_can_be_rendered(): void
+    public function testTaskStatusSingleScreenCanBeRendered(): void
     {
         $taskStatus = TaskStatus::factory()->create();
         $response = $this->get("/task_statuses/{$taskStatus->id}");
         $response->assertStatus(200);
     }
 
-    public function test_task_status_create_screen_can_be_rendered(): void
+    public function testTaskStatusCreateScreenCanBeRendered(): void
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/task_statuses/create');
         $response->assertStatus(200);
     }
 
-    public function test_task_status_edit_screen_can_be_rendered(): void
+    public function testTaskStatusEditScreenCanBeRendered(): void
     {
         $taskStatus = TaskStatus::factory()->create();
         $user = User::factory()->create();
@@ -43,7 +43,7 @@ class TaskStatusTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_guest_cant_create_task_status(): void
+    public function testGuestCantCreateTaskStatus(): void
     {
         $response = $this->post('task_statuses', [
             'name' => 'Done'
@@ -53,7 +53,7 @@ class TaskStatusTest extends TestCase
         $this->assertDatabaseMissing('task_statuses', ['name' => 'Done']);
     }
 
-    public function test_guest_cant_edit_task_status(): void
+    public function testGuestCantEditTaskStatus(): void
     {
         $taskStatus = TaskStatus::factory()->create();
 
@@ -65,7 +65,7 @@ class TaskStatusTest extends TestCase
         $this->assertDatabaseMissing('task_statuses', ['name' => 'Update status']);
     }
 
-    public function test_guest_cant_delete_task_status(): void
+    public function testGuestCantDeleteTaskStatus(): void
     {
         $taskStatus = TaskStatus::factory()->create();
 
@@ -75,7 +75,7 @@ class TaskStatusTest extends TestCase
         $this->assertDatabaseHas('task_statuses', ['id' => $taskStatus->id]);
     }
 
-    public function test_auth_user_can_create_task_status(): void
+    public function testAuthUserCanCreateTaskStatus(): void
     {
         $user = User::factory()->create();
 
@@ -87,7 +87,7 @@ class TaskStatusTest extends TestCase
         $this->assertDatabaseHas('task_statuses', ['name' => 'Done']);
     }
 
-    public function test_auth_user_can_edit_task_status(): void
+    public function testAuthUserCanEditTaskStatus(): void
     {
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create(['name' => 'pending']);
@@ -99,7 +99,7 @@ class TaskStatusTest extends TestCase
         $this->assertDatabaseHas('task_statuses', ['name' => 'Update status']);
     }
 
-    public function test_auth_user_can_delete_task_status(): void
+    public function testAuthUserCanDeleteTaskStatus(): void
     {
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create(['name' => 'pending']);
@@ -109,7 +109,7 @@ class TaskStatusTest extends TestCase
         $this->assertDatabaseMissing('task_statuses', ['id' => $taskStatus->id]);
     }
 
-    public function test_task_status_cannot_be_deleted_if_it_has_related_tasks(): void
+    public function testTaskStatusCannotBeDeletedIfItHasRelatedTasks(): void
     {
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
@@ -122,7 +122,7 @@ class TaskStatusTest extends TestCase
         $this->assertEquals(__('task_statuses.The status cannot be deleted because it is associated with tasks.'), session('flash_notification')->first()->message);
     }
 
-    public function test_name_is_required_to_create_task_status()
+    public function testNameIsRequiredToCreateTaskStatus()
     {
         $user = User::factory()->create();
 
@@ -134,7 +134,7 @@ class TaskStatusTest extends TestCase
         $this->assertDatabaseCount('task_statuses', 0);
     }
 
-    public function test_name_cannot_exceed_maximum_length()
+    public function testNameCannotExceedMaximumLength()
     {
         $user = User::factory()->create();
 

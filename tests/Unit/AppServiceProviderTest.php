@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\URL;
 
 class AppServiceProviderTest extends TestCase
 {
-    public function test_it_forces_https_in_production_environment()
+    public function testItForcesHttpsInProductionEnvironment(): void
     {
         $this->app['env'] = 'production';
 

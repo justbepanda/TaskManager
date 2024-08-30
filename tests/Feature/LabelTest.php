@@ -13,27 +13,27 @@ class LabelTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_labels_page_can_be_rendered()
+    public function testLabelsPageCanBeRendered(): void
     {
         $response = $this->get('/labels');
         $response->assertStatus(200);
     }
 
-    public function test_label_single_page_can_be_rendered()
+    public function testLabelSinglePageCanBeRendered(): void
     {
         $label = Label::factory()->create();
         $response = $this->get("/labels/{$label->id}");
         $response->assertStatus(200);
     }
 
-    public function test_label_create_page_can_be_rendered()
+    public function testLabelCreatePageCanBeRendered(): void
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get("/labels/create");
         $response->assertStatus(200);
     }
 
-    public function test_label_edit_page_can_be_rendered()
+    public function testLabelEditPageCanBeRendered(): void
     {
         $user = User::factory()->create();
         $label = Label::factory()->create();
@@ -43,7 +43,7 @@ class LabelTest extends TestCase
 
 
 
-    public function test_label_cant_be_create_by_quest()
+    public function test_label_cant_be_create_by_quest(): void
     {
         $response = $this->post('labels', [
             'name' => 'test label',
@@ -55,7 +55,7 @@ class LabelTest extends TestCase
         $this->assertDatabaseMissing('labels', ['name' => 'test label']);
     }
 
-    public function test_label_cant_be_deleted_by_quest()
+    public function test_label_cant_be_deleted_by_quest(): void
     {
         $label = Label::factory()->create();
         $response = $this->delete("/labels/{$label->id}");
@@ -65,7 +65,7 @@ class LabelTest extends TestCase
         $this->assertDatabaseHas('labels', ['id' => $label->id]);
     }
 
-    public function test_label_cant_be_updated_by_quest()
+    public function testLabelCantBeUpdatedByQuest(): void
     {
         $label = Label::factory()->create();
         $response = $this->patch("/labels/{$label->id}", [
@@ -77,7 +77,7 @@ class LabelTest extends TestCase
         $this->assertDatabaseMissing('labels', ['id' => $label->id, 'name' => 'test label']);
     }
 
-    public function test_label_can_be_created_by_user()
+    public function testLabelCanBeCreatedByUser(): void
     {
         $user = User::factory()->create();
 
@@ -90,7 +90,7 @@ class LabelTest extends TestCase
         $this->assertDatabaseHas('labels', ['name' => 'test label']);
     }
 
-    public function test_label_can_be_updated_by_user()
+    public function testLabelCanBeUpdatedByUser(): void
     {
         $user = User::factory()->create();
         $label = Label::factory()->create();
@@ -104,7 +104,7 @@ class LabelTest extends TestCase
         $this->assertDatabaseHas('labels', ['name' => 'test label']);
     }
 
-    public function test_label_can_be_deleted_by_user()
+    public function testLabelCanBeDeletedByUser(): void
     {
         $label = Label::factory()->create();
         $user = User::factory()->create();
@@ -114,7 +114,7 @@ class LabelTest extends TestCase
         $this->assertDatabaseMissing('labels', ['id' => $label->id]);
     }
 
-    public function test_labels_can_be_attached_to_task()
+    public function testLabelsCanBeAttachedToTask(): void
     {
         $taskStatus = TaskStatus::factory()->create();
         $user = User::factory()->create();
@@ -131,7 +131,7 @@ class LabelTest extends TestCase
         }
     }
 
-    public function test_labels_can_be_detached_from_task()
+    public function testLabelsCanBeDetachedFromTask(): void
     {
         $taskStatus = TaskStatus::factory()->create();
         $user = User::factory()->create();
@@ -150,7 +150,7 @@ class LabelTest extends TestCase
         }
     }
 
-    public function test_task_can_have_labels()
+    public function testTaskCanHaveLabels(): void
     {
         $taskStatus = TaskStatus::factory()->create();
         $user = User::factory()->create();
@@ -162,7 +162,7 @@ class LabelTest extends TestCase
         $this->assertTrue($task->labels->contains($label->id));
     }
 
-    public function test_cascade_delete()
+    public function testCascadeDelete(): void
     {
         $taskStatus = TaskStatus::factory()->create();
         $user = User::factory()->create();
@@ -179,7 +179,7 @@ class LabelTest extends TestCase
         ]);
     }
 
-    public function test_label_cant_be_deleted_if_used()
+    public function testLabelCantBeDeletedIfUsed(): void
     {
         $taskStatus = TaskStatus::factory()->create();
         $user = User::factory()->create();

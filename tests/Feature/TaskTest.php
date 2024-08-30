@@ -14,12 +14,12 @@ class TaskTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    public function test_tasks_screen_can_be_rendered(): void
+    public function testTasksScreenCanBeRendered(): void
     {
         $response = $this->get('/tasks');
         $response->assertStatus(200);
     }
-    public function test_task_single_screen_can_be_rendered(): void
+    public function testTaskSingleScreenCanBeRendered(): void
     {
         TaskStatus::factory()->create();
         User::factory()->create();
@@ -28,14 +28,14 @@ class TaskTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_task_create_screen_can_be_rendered_for_user(): void
+    public function testTaskCreateScreenCanBeRenderedForUser(): void
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get("/tasks/create");
         $response->assertStatus(200);
     }
 
-    public function test_task_edit_screen_can_be_rendered_for_user(): void
+    public function testTaskEditScreenCanBeRenderedForUser(): void
     {
         TaskStatus::factory()->create();
         $user = User::factory()->create();
@@ -45,7 +45,7 @@ class TaskTest extends TestCase
     }
 
 
-    public function test_guest_cannot_create_task(): void
+    public function testGuestCannotCreateTask(): void
     {
         $response = $this->get('/tasks/create', [
             'name' => 'Example Task',
@@ -57,7 +57,7 @@ class TaskTest extends TestCase
         $this->assertDatabaseMissing('tasks', ['name' => 'Example Task']);
     }
 
-    public function test_guest_cannot_edit_task(): void
+    public function testGuestCannotEditTask(): void
     {
         TaskStatus::factory()->create();
         User::factory()->create();
@@ -72,7 +72,7 @@ class TaskTest extends TestCase
         $this->assertDatabaseMissing('tasks', ['name' => 'Update Task']);
     }
 
-    public function test_guest_cannot_delete_task(): void
+    public function testGuestCannotDeleteTask(): void
     {
         $taskStatus = TaskStatus::factory()->create();
         User::factory()->create();
@@ -84,7 +84,7 @@ class TaskTest extends TestCase
         $this->assertDatabaseHas('tasks', ['id' => $task->id]);
     }
 
-    public function test_user_can_create_task(): void
+    public function testUserCanCreateTask(): void
     {
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
@@ -106,7 +106,7 @@ class TaskTest extends TestCase
         ]);
     }
 
-    public function test_user_can_update_task(): void
+    public function testUserCanUpdateTask(): void
     {
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();
@@ -125,7 +125,7 @@ class TaskTest extends TestCase
         $this->assertDatabaseHas('tasks', ['id' => $task->id, 'name' => 'Updated task', 'status_id' => $taskStatus2->id, 'description' => 'Updated task description', 'assigned_to_id' => $user2->id]);
     }
 
-    public function test_user_can_delete_task(): void
+    public function testUserCanDeleteTask(): void
     {
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
@@ -137,7 +137,7 @@ class TaskTest extends TestCase
         $this->assertDatabaseMissing('tasks', ['id' => $task->id]);
     }
 
-    public function test_user_cant_delete_task_if_he_is_not_the_creator(): void
+    public function testUserCantDeleteTaskIfHeIsNotTheCreator(): void
     {
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();

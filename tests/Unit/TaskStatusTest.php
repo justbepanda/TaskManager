@@ -20,7 +20,7 @@ class TaskStatusTest extends TestCase
 
         $this->assertEquals('Done', $taskStatus->name);
     }
-    public function test_exception_delete_a_label_with_related_tasks()
+    public function testExceptionDeleteALabelWithRelatedTasks(): void
     {
         User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();

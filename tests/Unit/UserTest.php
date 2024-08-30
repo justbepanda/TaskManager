@@ -12,7 +12,7 @@ class UserTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_createdTasks()
+    public function testCreatedTasks(): void
     {
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
@@ -21,7 +21,7 @@ class UserTest extends TestCase
         $this->assertTrue($user->createdTasks->contains($task));
     }
 
-    public function test_assignedTasks()
+    public function testAssignedTasks(): void
     {
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();

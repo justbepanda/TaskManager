@@ -13,7 +13,7 @@ class LabelTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_label_can_be_created()
+    public function testLabelCanBeCreated(): void
     {
         $label = Label::factory()->create([
             'name' => 'Example Label',
@@ -27,7 +27,7 @@ class LabelTest extends TestCase
         ]);
     }
 
-    public function test_label_can_be_updated()
+    public function testLabelCanBeUpdated(): void
     {
         $label = Label::factory()->create();
 
@@ -43,7 +43,7 @@ class LabelTest extends TestCase
         ]);
     }
 
-    public function test_exception_delete_a_label_with_related_tasks()
+    public function testExceptionDeleteALabelWithRelatedTasks(): void
     {
         $label = Label::factory()->create();
         User::factory()->create();
