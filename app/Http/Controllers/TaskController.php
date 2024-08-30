@@ -52,15 +52,18 @@ class TaskController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|unique:tasks,name|max:255',
             'status_id' => 'required',
-            'created_by_id' => 'required',
             'assigned_to_id' => 'nullable',
             'description' => 'max:255',
             'labels' => ''
         ]);
 
+        $validatedData['created_by_id'] = $request->user()->id;
+
         $task = Task::create($validatedData);
 
-        $task->labels()->attach($validatedData['labels'] ?? []);
+        if (isset($validatedData['labels'])) {
+            $task->labels()->attach($validatedData['labels']);
+        }
 
         flash(__('tasks.Task created successfully!'))->success();
         return redirect()->route('tasks.index');
