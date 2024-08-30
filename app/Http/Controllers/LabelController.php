@@ -49,9 +49,8 @@ class LabelController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Label $label)
     {
-        $label = Label::findOrFail($id);
         return view('labels.edit', compact('label'));
     }
 
@@ -60,8 +59,10 @@ class LabelController extends Controller
      */
     public function update(UpdateLabelRequest $request, Label $label)
     {
-        $validated = $request->validated();
-        $label->update($validated);
+        $data = $request->validated();
+
+        $label->fill($data);
+        $label->save();
 
         flash(__('labels.Label updated successfully!'))->success();
         return redirect()->route('labels.index');
