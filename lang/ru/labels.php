@@ -17,9 +17,9 @@ return [
     'There are no labels' => 'Нет меток',
     'The label cannot be deleted because it is associated with task.' => 'Метка не может быть удалена, так как она связана с задачей.',
     'Label' => 'Метка',
-    'Label created successfully!' => 'Метка успешно создана!',
-    'Label updated successfully!' => 'Метка успешно изменена!',
-    'Label deleted successfully!' => 'Метка успешно удалена!',
+    'Label created successfully!' => 'Метка успешно создана',
+    'Label updated successfully!' => 'Метка успешно изменена',
+    'Label deleted successfully!' => 'Метка успешно удалена',
     'Description' => 'Описание',
     'A label with that name already exists' => 'Метка с таким именем уже существует',
 ];
