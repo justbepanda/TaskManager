@@ -17,7 +17,7 @@ return [
     'There are no tasks' => 'Нет задач',
     'Task' => 'Задача',
     'Task created successfully!' => 'Задача успешно создана!',
-    'Task updated successfully!' => 'Задача успешно обновлена!',
+    'Task updated successfully!' => 'Задача успешно изменена!',
     'Task deleted successfully!' => 'Задача успешно удалена!',
     'Description' => 'Описание',
     'Status' => 'Статус',
