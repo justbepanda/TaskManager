@@ -10,7 +10,6 @@
                 <div class="p-6 text-gray-900">
                     <form action="{{ route('task_statuses.store') }}" method="POST">
                         @csrf
-
                         <!-- Name -->
                         <div>
                             <x-input-label for="name" :value="__('task_statuses.Name')" />

@@ -27,4 +27,11 @@ class StoreLabelRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:255'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.unique' => __('label.A label with that name already exists'),
+        ];
+    }
 }

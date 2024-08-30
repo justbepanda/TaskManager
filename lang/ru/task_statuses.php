@@ -21,4 +21,5 @@ return [
     'Status deleted successfully!' => 'Статус успешно удалён!',
     'The status cannot be deleted because it is associated with tasks.' => 'Статус не может быть удален, так как он связан с задачами.',
     'Error when deleting the task status: ' => 'Ошибка при удалении статуса задачи: ',
+    'A status with that name already exists' => 'Статус с таким именем уже существует'
 ];

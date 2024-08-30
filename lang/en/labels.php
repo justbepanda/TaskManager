@@ -21,4 +21,5 @@ return [
     'Label updated successfully!' => 'Label updated successfully!',
     'Label deleted successfully!' => 'Label deleted successfully!',
     'Description' => 'Description',
+    'A label with that name already exists' => 'A label with that name already exists',
 ];

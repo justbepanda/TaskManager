@@ -31,7 +31,7 @@ class TaskStatusController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|unique:task_statuses,name|max:255',
-        ]);
+        ], ['name.unique' => __('task_statuses.A status with that name already exists')]);
 
         TaskStatus::create($validatedData);
 
@@ -64,7 +64,7 @@ class TaskStatusController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|unique:task_statuses,name,' . $id . '|max:255',
-        ]);
+        ], ['name.unique' => __('task_statuses.A status with that name already exists')]);
 
         $taskStatus = TaskStatus::findOrFail($id);
 

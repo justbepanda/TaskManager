@@ -21,4 +21,5 @@ return [
     'Label updated successfully!' => 'Метка успешно изменена!',
     'Label deleted successfully!' => 'Метка успешно удалена!',
     'Description' => 'Описание',
+    'A label with that name already exists' => 'Метка с таким именем уже существует',
 ];
