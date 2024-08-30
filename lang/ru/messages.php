@@ -5,4 +5,6 @@ return [
     'Create'    => 'Создать',
     'Login' => 'Вход',
     'Register' => 'Регистрация',
+    'Profile' => 'Профиль',
+    'Logout' => 'Выход',
 ];
