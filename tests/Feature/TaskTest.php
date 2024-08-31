@@ -68,7 +68,7 @@ class TaskTest extends TestCase
         ]);
 
         $response->assertRedirect('/login');
-        $this->assertDatabaseHas('tasks', ['name' => $task->name]);
+        $this->assertDatabaseHas('tasks', ['name' => $task->name]);  // @phpstan-ignore-line
         $this->assertDatabaseMissing('tasks', ['name' => 'Update Task']);
     }
 

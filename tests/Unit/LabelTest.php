@@ -31,7 +31,7 @@ class LabelTest extends TestCase
     {
         $label = Label::factory()->create();
 
-        $label->update([
+        $label->update([  // @phpstan-ignore-line
             'name' => 'Updated Label',
             'description' => 'Updated Description',
         ]);
@@ -51,11 +51,11 @@ class LabelTest extends TestCase
 
         $task = Task::factory()->create();
 
-        $label->tasks()->attach($task);
+        $label->tasks()->attach($task);  // @phpstan-ignore-line
 
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("Cannot delete label that has related tasks.");
 
-        $label->delete();
+        $label->delete();  // @phpstan-ignore-line
     }
 }

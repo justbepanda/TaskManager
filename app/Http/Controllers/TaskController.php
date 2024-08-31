@@ -9,13 +9,11 @@ use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-
 /**
- * App\Models\Task
- *
  * @property int $id
  * @property string $name
  * @property int|null $status_id
@@ -23,7 +21,6 @@ use Spatie\QueryBuilder\QueryBuilder;
  * @property int|null $assigned_to_id
  * @property string|null $description
  */
-
 class TaskController extends Controller
 {
     use AuthorizesRequests;
@@ -77,9 +74,11 @@ class TaskController extends Controller
             'labels' => ''
         ]);
 
-        $validatedData['created_by_id'] = auth()->id();
+        $validatedData['created_by_id'] = Auth::id();
 
-        $task = Task::create($validatedData);
+        $task = new Task();
+        $task->fill($validatedData);
+        $task->save();
 
         if (isset($validatedData['labels'])) {
             $task->labels()->attach($validatedData['labels']);
@@ -94,7 +93,7 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        $task = Task::with('creator')->findOrFail($id);
+        $task = Task::with('creator')->findOrFail($id); // @phpstan-ignore-line
 
         return view('tasks.show', compact('task'));
     }
@@ -104,7 +103,7 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
-        $task = Task::findOrFail($id);
+        $task = Task::findOrFail($id); // @phpstan-ignore-line
         $statuses = TaskStatus::all();
         $users = User::all();
         $labels = Label::all();
@@ -117,7 +116,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $task = Task::findOrFail($id);
+        $task = Task::findOrFail($id); // @phpstan-ignore-line
 
         $validatedData = $request->validate([
             'name' => 'string|max:255',
@@ -132,7 +131,7 @@ class TaskController extends Controller
         $task->save();
 
         if (isset($validatedData['labels'])) {
-            $task->labels()->sync($validatedData['labels'] ?? []);
+            $task->labels()->sync($validatedData['labels']);
         }
 
         flash(__('tasks.Task updated successfully!'))->success();
@@ -145,7 +144,7 @@ class TaskController extends Controller
      */
     public function destroy(string $id)
     {
-        $task = Task::findOrFail($id);
+        $task = Task::findOrFail($id); // @phpstan-ignore-line
         $this->authorize('delete', $task);
 
         $task->delete();

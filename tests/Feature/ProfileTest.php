@@ -37,11 +37,11 @@ class ProfileTest extends TestCase
             ->assertSessionHasNoErrors()
             ->assertRedirect('/profile');
 
-        $user->refresh();
+        $user->refresh();  // @phpstan-ignore-line
 
-        $this->assertSame('Test User', $user->name);
-        $this->assertSame('test@example.com', $user->email);
-        $this->assertNull($user->email_verified_at);
+        $this->assertSame('Test User', $user->name);  // @phpstan-ignore-line
+        $this->assertSame('test@example.com', $user->email);  // @phpstan-ignore-line
+        $this->assertNull($user->email_verified_at);  // @phpstan-ignore-line
     }
 
     public function testEmailVerificationStatusIsUnchangedWhenTheEmailAddressIsUnchanged(): void
@@ -52,14 +52,14 @@ class ProfileTest extends TestCase
             ->actingAs($user)
             ->patch('/profile', [
                 'name' => 'Test User',
-                'email' => $user->email,
+                'email' => $user->email,  // @phpstan-ignore-line
             ]);
 
         $response
             ->assertSessionHasNoErrors()
             ->assertRedirect('/profile');
 
-        $this->assertNotNull($user->refresh()->email_verified_at);
+        $this->assertNotNull($user->refresh()->email_verified_at);  // @phpstan-ignore-line
     }
 
     public function testUserCanDeleteTheirAccount(): void

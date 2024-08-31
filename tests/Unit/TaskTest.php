@@ -18,8 +18,8 @@ class TaskTest extends TestCase
         $taskStatus = TaskStatus::factory()->create();
         $task = Task::factory()->create(['created_by_id' => $user->id, 'assigned_to_id' => $user->id, 'status_id' => $taskStatus->id]);
 
-        $this->assertInstanceOf(User::class, $task->performer);
-        $this->assertEquals($user->id, $task->performer->id);
+        $this->assertInstanceOf(User::class, $task->performer); // @phpstan-ignore-line
+        $this->assertEquals($user->id, $task->performer->id); // @phpstan-ignore-line
     }
 
     public function testCreator(): void

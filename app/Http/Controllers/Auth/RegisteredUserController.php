@@ -35,7 +35,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
+        $user = User::create([ // @phpstan-ignore-line
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),

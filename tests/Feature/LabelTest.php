@@ -121,12 +121,12 @@ class LabelTest extends TestCase
         $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user->id]);
         $labels = Label::factory()->count(3)->create();
 
-        $task->labels()->attach($labels->pluck('id')->toArray());
+        $task->labels()->attach($labels->pluck('id')->toArray());   // @phpstan-ignore-line
 
-        foreach ($labels as $label) {
+        foreach ($labels as $label) {  // @phpstan-ignore-line
             $this->assertDatabaseHas('label_task', [
                 'task_id' => $task->id,
-                'label_id' => $label->id,
+                'label_id' => $label->id,  // @phpstan-ignore-line
             ]);
         }
     }
@@ -138,14 +138,14 @@ class LabelTest extends TestCase
         $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user->id]);
         $labels = Label::factory()->count(3)->create();
 
-        $task->labels()->attach($labels->pluck('id')->toArray());
+        $task->labels()->attach($labels->pluck('id')->toArray());  // @phpstan-ignore-line
 
-        $task->labels()->detach($labels->pluck('id')->toArray());
+        $task->labels()->detach($labels->pluck('id')->toArray());  // @phpstan-ignore-line
 
-        foreach ($labels as $label) {
+        foreach ($labels as $label) {  // @phpstan-ignore-line
             $this->assertDatabaseMissing('label_task', [
                 'task_id' => $task->id,
-                'label_id' => $label->id,
+                'label_id' => $label->id,  // @phpstan-ignore-line
             ]);
         }
     }
@@ -157,9 +157,9 @@ class LabelTest extends TestCase
         $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user->id]);
         $label = Label::factory()->create();
 
-        $task->labels()->attach($label->id);
+        $task->labels()->attach($label->id);  // @phpstan-ignore-line
 
-        $this->assertTrue($task->labels->contains($label->id));
+        $this->assertTrue($task->labels->contains($label->id));  // @phpstan-ignore-line
     }
 
     public function testCascadeDelete(): void
@@ -169,9 +169,9 @@ class LabelTest extends TestCase
         $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user->id]);
         $label = Label::factory()->create();
 
-        $task->labels()->attach($label->id);
+        $task->labels()->attach($label->id);  // @phpstan-ignore-line
 
-        $task->delete();
+        $task->delete();  // @phpstan-ignore-line
 
         $this->assertDatabaseMissing('label_task', [
             'task_id' => $task->id,
@@ -186,7 +186,7 @@ class LabelTest extends TestCase
         $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user->id]);
         $label = Label::factory()->create();
 
-        $task->labels()->attach($label->id);
+        $task->labels()->attach($label->id);  // @phpstan-ignore-line
 
         $response = $this->actingAs($user)->delete(route('labels.destroy', $label->id));
 

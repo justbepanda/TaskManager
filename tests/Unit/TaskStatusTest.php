@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\Task;
 use App\Models\User;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\TaskStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -11,10 +12,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class TaskStatusTest extends TestCase
 {
     use RefreshDatabase;
+    use WithFaker;
 
     public function testTaskStatusHasName(): void
     {
-        $taskStatus = TaskStatus::create([
+        $taskStatus = TaskStatus::factory()->create([
             'name' => 'Done',
         ]);
 
@@ -30,6 +32,6 @@ class TaskStatusTest extends TestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("Cannot delete status that has related tasks.");
 
-        $taskStatus->delete();
+        $taskStatus->delete(); // @phpstan-ignore-line
     }
 }

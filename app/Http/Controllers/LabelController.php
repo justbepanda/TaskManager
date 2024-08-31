@@ -32,7 +32,9 @@ class LabelController extends Controller
     public function store(StoreLabelRequest $request)
     {
         $validated = $request->validated();
-        Label::create($validated);
+        $label = new Label();
+        $label->fill($validated);
+        $label->save();
 
         flash(__('labels.Label created successfully!'))->success();
         return redirect()->route('labels.index');
