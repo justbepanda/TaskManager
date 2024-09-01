@@ -23,6 +23,7 @@ class TaskStatusTest extends TestCase
 
     public function testTaskStatusSingleScreenCanBeRendered(): void
     {
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create();
         $response = $this->get("/task_statuses/{$taskStatus->id}");
         $response->assertStatus(200);
@@ -30,6 +31,7 @@ class TaskStatusTest extends TestCase
 
     public function testTaskStatusCreateScreenCanBeRendered(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/task_statuses/create');
         $response->assertStatus(200);
@@ -37,7 +39,9 @@ class TaskStatusTest extends TestCase
 
     public function testTaskStatusEditScreenCanBeRendered(): void
     {
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create();
+        /** @var User $user * */
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get("/task_statuses/{$taskStatus->id}/edit");
         $response->assertStatus(200);
@@ -55,6 +59,7 @@ class TaskStatusTest extends TestCase
 
     public function testGuestCantEditTaskStatus(): void
     {
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create();
 
         $response = $this->put("task_statuses/{$taskStatus->id}", [
@@ -67,6 +72,7 @@ class TaskStatusTest extends TestCase
 
     public function testGuestCantDeleteTaskStatus(): void
     {
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create();
 
         $response = $this->delete("/task_statuses/{$taskStatus->id}");
@@ -77,6 +83,7 @@ class TaskStatusTest extends TestCase
 
     public function testAuthUserCanCreateTaskStatus(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post('task_statuses', [
@@ -89,7 +96,9 @@ class TaskStatusTest extends TestCase
 
     public function testAuthUserCanEditTaskStatus(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create(['name' => 'pending']);
         $response = $this->actingAs($user)->put("task_statuses/{$taskStatus->id}", [
             'name' => 'Update status',
@@ -101,7 +110,9 @@ class TaskStatusTest extends TestCase
 
     public function testAuthUserCanDeleteTaskStatus(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create(['name' => 'pending']);
         $response = $this->actingAs($user)->delete("task_statuses/{$taskStatus->id}");
 
@@ -111,8 +122,11 @@ class TaskStatusTest extends TestCase
 
     public function testTaskStatusCannotBeDeletedIfItHasRelatedTasks(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create();
+        /** @var Task $task * */
         $task = Task::factory()->create(['status_id' => $taskStatus->id]);
 
         $response = $this->actingAs($user)->delete("/task_statuses/{$taskStatus->id}");
@@ -124,6 +138,7 @@ class TaskStatusTest extends TestCase
 
     public function testNameIsRequiredToCreateTaskStatus()
     {
+        /** @var User $user * */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post('/task_statuses', [
@@ -136,6 +151,7 @@ class TaskStatusTest extends TestCase
 
     public function testNameCannotExceedMaximumLength()
     {
+        /** @var User $user * */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post('/task_statuses', [

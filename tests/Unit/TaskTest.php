@@ -14,19 +14,19 @@ class TaskTest extends TestCase
 
     public function testPerformer(): void
     {
-        $user = User::factory()->create();
-        $taskStatus = TaskStatus::factory()->create();
-        $task = Task::factory()->create(['created_by_id' => $user->id, 'assigned_to_id' => $user->id, 'status_id' => $taskStatus->id]);
+        /** @var User $user **/ $user = User::factory()->create();
+        /** @var TaskStatus $taskStatus **/ $taskStatus = TaskStatus::factory()->create();
+        /** @var Task $task **//** @var Task $task **/ $task = Task::factory()->create(['created_by_id' => $user->id, 'assigned_to_id' => $user->id, 'status_id' => $taskStatus->id]);
 
-        $this->assertInstanceOf(User::class, $task->performer); // @phpstan-ignore-line
-        $this->assertEquals($user->id, $task->performer->id); // @phpstan-ignore-line
+        $this->assertInstanceOf(User::class, $task->performer);
+        $this->assertEquals($user->id, $task->performer->id);
     }
 
     public function testCreator(): void
     {
-        $user = User::factory()->create();
-        $taskStatus = TaskStatus::factory()->create();
-        $task = Task::factory()->create(['created_by_id' => $user->id, 'status_id' => $taskStatus->id]);
+        /** @var User $user **/ $user = User::factory()->create();
+        /** @var TaskStatus $taskStatus **/ $taskStatus = TaskStatus::factory()->create();
+        /** @var Task $task **/ /** @var Task $task **/ $task = Task::factory()->create(['created_by_id' => $user->id, 'status_id' => $taskStatus->id]);
 
         $this->assertInstanceOf(User::class, $task->creator);
         $this->assertEquals($user->id, $task->creator->id);
@@ -34,9 +34,9 @@ class TaskTest extends TestCase
 
     public function testStatus(): void
     {
-        $user = User::factory()->create();
-        $taskStatus = TaskStatus::factory()->create();
-        $task = Task::factory()->create(['status_id' => $taskStatus->id]);
+        /** @var User $user **/ $user = User::factory()->create();
+        /** @var TaskStatus $taskStatus **/ $taskStatus = TaskStatus::factory()->create();
+        /** @var Task $task **/ $task = Task::factory()->create(['status_id' => $taskStatus->id]);
 
         $this->assertInstanceOf(TaskStatus::class, $task->status);
         $this->assertEquals($user->id, $task->status->id);
@@ -44,9 +44,9 @@ class TaskTest extends TestCase
 
     public function testTaskCanBeCreated(): void
     {
-        $user = User::factory()->create();
-        $taskStatus = TaskStatus::factory()->create();
-        $task = Task::factory()->create([
+        /** @var User $user **/ $user = User::factory()->create();
+        /** @var TaskStatus $taskStatus **/ $taskStatus = TaskStatus::factory()->create();
+        /** @var Task $task **/ $task = Task::factory()->create([
             'name' => 'Test Task',
             'description' => 'This is a test task',
             'status_id' => $taskStatus->id,
@@ -65,9 +65,9 @@ class TaskTest extends TestCase
 
     public function testTaskCanBeUpdated(): void
     {
-        $user = User::factory()->create();
-        $taskStatus = TaskStatus::factory()->create();
-        $task = Task::factory()->create(['created_by_id' => $user->id, 'status_id' => $taskStatus->id]);
+        /** @var User $user **/ $user = User::factory()->create();
+        /** @var TaskStatus $taskStatus **/ $taskStatus = TaskStatus::factory()->create();
+        /** @var Task $task **/ $task = Task::factory()->create(['created_by_id' => $user->id, 'status_id' => $taskStatus->id]);
 
         $task->update([
             'name' => 'Updated Task Name',

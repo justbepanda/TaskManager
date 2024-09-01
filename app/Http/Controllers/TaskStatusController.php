@@ -38,7 +38,7 @@ class TaskStatusController extends Controller
             'name' => 'required|unique:task_statuses,name|max:255',
         ], ['name.unique' => __('task_statuses.A status with that name already exists')]);
 
-        TaskStatus::create($validatedData); // @phpstan-ignore-line
+        TaskStatus::create($validatedData);
 
         flash(__('task_statuses.Status created successfully!'))->success();
         return redirect()->route('task_statuses.index');
@@ -49,7 +49,7 @@ class TaskStatusController extends Controller
      */
     public function show(string $id)
     {
-        $taskStatus = TaskStatus::findOrFail($id); // @phpstan-ignore-line
+        $taskStatus = TaskStatus::findOrFail($id);
         return view('task_statuses.show', compact('taskStatus'));
     }
 
@@ -58,7 +58,7 @@ class TaskStatusController extends Controller
      */
     public function edit(string $id)
     {
-        $taskStatus = TaskStatus::findOrFail($id); // @phpstan-ignore-line
+        $taskStatus = TaskStatus::findOrFail($id);
         return view('task_statuses.edit', compact('taskStatus'));
     }
 
@@ -71,7 +71,7 @@ class TaskStatusController extends Controller
             'name' => 'required|unique:task_statuses,name,' . $id . '|max:255',
         ], ['name.unique' => __('task_statuses.A status with that name already exists')]);
 
-        $taskStatus = TaskStatus::findOrFail($id); // @phpstan-ignore-line
+        $taskStatus = TaskStatus::findOrFail($id);
 
         $taskStatus->name = $validatedData['name'];
         $taskStatus->save();
@@ -85,7 +85,7 @@ class TaskStatusController extends Controller
      */
     public function destroy(string $id)
     {
-        $taskStatus = TaskStatus::findOrFail($id); // @phpstan-ignore-line
+        $taskStatus = TaskStatus::findOrFail($id);
 
         if ($taskStatus->tasks()->exists()) {
             flash(__('task_statuses.The status cannot be deleted because it is associated with tasks.'))->error();

@@ -12,6 +12,7 @@ class ProfileTest extends TestCase
 
     public function testProfilePageIsDisplayed(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
 
         $response = $this
@@ -24,6 +25,7 @@ class ProfileTest extends TestCase
 
     public function testProfileInformationCanBeUpdated(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
 
         $response = $this
@@ -37,33 +39,35 @@ class ProfileTest extends TestCase
             ->assertSessionHasNoErrors()
             ->assertRedirect('/profile');
 
-        $user->refresh();  // @phpstan-ignore-line
+        $user->refresh();
 
-        $this->assertSame('Test User', $user->name);  // @phpstan-ignore-line
-        $this->assertSame('test@example.com', $user->email);  // @phpstan-ignore-line
-        $this->assertNull($user->email_verified_at);  // @phpstan-ignore-line
+        $this->assertSame('Test User', $user->name);
+        $this->assertSame('test@example.com', $user->email);
+        $this->assertNull($user->email_verified_at);
     }
 
     public function testEmailVerificationStatusIsUnchangedWhenTheEmailAddressIsUnchanged(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
 
         $response = $this
             ->actingAs($user)
             ->patch('/profile', [
                 'name' => 'Test User',
-                'email' => $user->email,  // @phpstan-ignore-line
+                'email' => $user->email,
             ]);
 
         $response
             ->assertSessionHasNoErrors()
             ->assertRedirect('/profile');
 
-        $this->assertNotNull($user->refresh()->email_verified_at);  // @phpstan-ignore-line
+        $this->assertNotNull($user->refresh()->email_verified_at);
     }
 
     public function testUserCanDeleteTheirAccount(): void
     {
+        /** @var User $user */
         $user = User::factory()->create();
 
         $response = $this
@@ -82,6 +86,7 @@ class ProfileTest extends TestCase
 
     public function testCorrectPasswordMustBeProvidedToDeleteAccount(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
 
         $response = $this

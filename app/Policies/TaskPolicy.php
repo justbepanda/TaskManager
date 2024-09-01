@@ -37,7 +37,7 @@ class TaskPolicy
 //     */
     public function update(User $user, Task $task): bool
     {
-        return $user->id;   // @phpstan-ignore-line
+        return $user->id;
     }
 
     /**
@@ -45,7 +45,7 @@ class TaskPolicy
      */
     public function delete(User $user, Task $task): bool
     {
-        return $task->created_by_id === $user->id;  // @phpstan-ignore-line
+        return $task->created_by_id === $user->id;
     }
 
 //    /**

@@ -15,7 +15,7 @@ class EmailVerificationTest extends TestCase
 
     public function testEmailVerificationScreenCanBeRendered(): void
     {
-        $user = User::factory()->unverified()->create();
+        /** @var User $user **/ $user = User::factory()->unverified()->create();
 
         $response = $this->actingAs($user)->get('/verify-email');
 
@@ -24,7 +24,7 @@ class EmailVerificationTest extends TestCase
 
     public function testEmailCanBeVerified(): void
     {
-        $user = User::factory()->unverified()->create();
+        /** @var User $user **/ $user = User::factory()->unverified()->create();
 
         Event::fake();
 
@@ -43,7 +43,7 @@ class EmailVerificationTest extends TestCase
 
     public function testEmailIsNotVerifiedWithInvalidHash(): void
     {
-        $user = User::factory()->unverified()->create();
+        /** @var User $user **/ $user = User::factory()->unverified()->create();
 
         $verificationUrl = URL::temporarySignedRoute(
             'verification.verify',

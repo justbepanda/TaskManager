@@ -19,10 +19,12 @@ class TaskTest extends TestCase
         $response = $this->get('/tasks');
         $response->assertStatus(200);
     }
+
     public function testTaskSingleScreenCanBeRendered(): void
     {
         TaskStatus::factory()->create();
         User::factory()->create();
+        /** @var Task $task * */
         $task = Task::factory()->create();
         $response = $this->get("/tasks/{$task->id}");
         $response->assertStatus(200);
@@ -30,6 +32,7 @@ class TaskTest extends TestCase
 
     public function testTaskCreateScreenCanBeRenderedForUser(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get("/tasks/create");
         $response->assertStatus(200);
@@ -38,7 +41,9 @@ class TaskTest extends TestCase
     public function testTaskEditScreenCanBeRenderedForUser(): void
     {
         TaskStatus::factory()->create();
+        /** @var User $user * */
         $user = User::factory()->create();
+        /** @var Task $task * */
         $task = Task::factory()->create();
         $response = $this->actingAs($user)->get("/tasks/{$task->id}/edit");
         $response->assertStatus(200);
@@ -61,6 +66,7 @@ class TaskTest extends TestCase
     {
         TaskStatus::factory()->create();
         User::factory()->create();
+        /** @var Task $task * */
         $task = Task::factory()->create();
 
         $response = $this->patch("/tasks/{$task->id}", [
@@ -68,14 +74,16 @@ class TaskTest extends TestCase
         ]);
 
         $response->assertRedirect('/login');
-        $this->assertDatabaseHas('tasks', ['name' => $task->name]);  // @phpstan-ignore-line
+        $this->assertDatabaseHas('tasks', ['name' => $task->name]);  //
         $this->assertDatabaseMissing('tasks', ['name' => 'Update Task']);
     }
 
     public function testGuestCannotDeleteTask(): void
     {
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create();
         User::factory()->create();
+        /** @var Task $task * */
         $task = Task::factory()->create(['status_id' => $taskStatus->id]);
 
         $response = $this->delete("tasks/{$task->id}");
@@ -86,7 +94,9 @@ class TaskTest extends TestCase
 
     public function testUserCanCreateTask(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create();
         $response = $this->actingAs($user)->post('tasks', [
             'name' => 'Example Task',
@@ -108,10 +118,15 @@ class TaskTest extends TestCase
 
     public function testUserCanUpdateTask(): void
     {
+        /** @var User $user1 */
         $user1 = User::factory()->create();
+        /** @var User $user2 */
         $user2 = User::factory()->create();
+        /** @var TaskStatus $taskStatus */
         $taskStatus = TaskStatus::factory()->create();
+        /** @var TaskStatus $taskStatus2 */
         $taskStatus2 = TaskStatus::factory()->create();
+        /** @var Task $task * */
         $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user1->id]);
 
         $response = $this->actingAs($user1)->patch("/tasks/{$task->id}", [
@@ -127,8 +142,11 @@ class TaskTest extends TestCase
 
     public function testUserCanDeleteTask(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create();
+        /** @var Task $task * */
         $task = Task::factory()->create(['status_id' => $taskStatus->id]);
 
         $response = $this->actingAs($user)->delete("/tasks/{$task->id}");
@@ -141,7 +159,9 @@ class TaskTest extends TestCase
     {
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create();
+        /** @var Task $task * */
         $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user1->id]);
         $response = $this->actingAs($user2)->delete("/tasks/{$task->id}");
         $response->assertStatus(403);

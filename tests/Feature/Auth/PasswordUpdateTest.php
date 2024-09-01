@@ -13,7 +13,7 @@ class PasswordUpdateTest extends TestCase
 
     public function testPasswordCanBeUpdated(): void
     {
-        $user = User::factory()->create();
+        /** @var User $user **/ $user = User::factory()->create();
 
         $response = $this
             ->actingAs($user)
@@ -33,7 +33,7 @@ class PasswordUpdateTest extends TestCase
 
     public function testCorrectPasswordMustBeProvidedToUpdatePassword(): void
     {
-        $user = User::factory()->create();
+        /** @var User $user **/ $user = User::factory()->create();
 
         $response = $this
             ->actingAs($user)

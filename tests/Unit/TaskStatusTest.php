@@ -16,7 +16,7 @@ class TaskStatusTest extends TestCase
 
     public function testTaskStatusHasName(): void
     {
-        $taskStatus = TaskStatus::factory()->create([
+        /** @var TaskStatus $taskStatus **/ /** @var TaskStatus $taskStatus **/ $taskStatus = TaskStatus::factory()->create([
             'name' => 'Done',
         ]);
 
@@ -25,13 +25,13 @@ class TaskStatusTest extends TestCase
     public function testExceptionDeleteALabelWithRelatedTasks(): void
     {
         User::factory()->create();
-        $taskStatus = TaskStatus::factory()->create();
+        /** @var TaskStatus $taskStatus **/ $taskStatus = TaskStatus::factory()->create();
 
-        $task = Task::factory()->create(['status_id' => $taskStatus->id]);
+        /** @var Task $task **/ $task = Task::factory()->create(['status_id' => $taskStatus->id]);
 
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("Cannot delete status that has related tasks.");
 
-        $taskStatus->delete(); // @phpstan-ignore-line
+        $taskStatus->delete();
     }
 }

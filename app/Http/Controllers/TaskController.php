@@ -93,7 +93,7 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        $task = Task::with('creator')->findOrFail($id); // @phpstan-ignore-line
+        $task = Task::with('creator')->findOrFail($id);
 
         return view('tasks.show', compact('task'));
     }
@@ -103,7 +103,7 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
-        $task = Task::findOrFail($id); // @phpstan-ignore-line
+        $task = Task::findOrFail($id);
         $statuses = TaskStatus::all();
         $users = User::all();
         $labels = Label::all();
@@ -116,7 +116,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $task = Task::findOrFail($id); // @phpstan-ignore-line
+        $task = Task::findOrFail($id);
 
         $validatedData = $request->validate([
             'name' => 'string|max:255',
@@ -144,7 +144,7 @@ class TaskController extends Controller
      */
     public function destroy(string $id)
     {
-        $task = Task::findOrFail($id); // @phpstan-ignore-line
+        $task = Task::findOrFail($id);
         $this->authorize('delete', $task);
 
         $task->delete();

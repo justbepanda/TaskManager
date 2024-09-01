@@ -6,6 +6,7 @@ use App\Models\Label;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -21,6 +22,7 @@ class LabelTest extends TestCase
 
     public function testLabelSinglePageCanBeRendered(): void
     {
+        /** @var Label $label */
         $label = Label::factory()->create();
         $response = $this->get("/labels/{$label->id}");
         $response->assertStatus(200);
@@ -28,6 +30,7 @@ class LabelTest extends TestCase
 
     public function testLabelCreatePageCanBeRendered(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get("/labels/create");
         $response->assertStatus(200);
@@ -35,12 +38,13 @@ class LabelTest extends TestCase
 
     public function testLabelEditPageCanBeRendered(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
+        /** @var Label $label */
         $label = Label::factory()->create();
         $response = $this->actingAs($user)->get("/labels/{$label->id}/edit");
         $response->assertStatus(200);
     }
-
 
 
     public function testLabelCantBeCreateByQuest(): void
@@ -57,6 +61,7 @@ class LabelTest extends TestCase
 
     public function testLabelCantBeDeletedByQuest(): void
     {
+        /** @var Label $label */
         $label = Label::factory()->create();
         $response = $this->delete("/labels/{$label->id}");
 
@@ -67,6 +72,7 @@ class LabelTest extends TestCase
 
     public function testLabelCantBeUpdatedByQuest(): void
     {
+        /** @var Label $label */
         $label = Label::factory()->create();
         $response = $this->patch("/labels/{$label->id}", [
             'name' => 'test label',
@@ -79,6 +85,7 @@ class LabelTest extends TestCase
 
     public function testLabelCanBeCreatedByUser(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post('labels', [
@@ -92,7 +99,9 @@ class LabelTest extends TestCase
 
     public function testLabelCanBeUpdatedByUser(): void
     {
+        /** @var User $user * */
         $user = User::factory()->create();
+        /** @var Label $label */
         $label = Label::factory()->create();
 
         $response = $this->actingAs($user)->patch('/labels/' . $label->id, [
@@ -106,7 +115,9 @@ class LabelTest extends TestCase
 
     public function testLabelCanBeDeletedByUser(): void
     {
+        /** @var Label $label */
         $label = Label::factory()->create();
+        /** @var User $user * */
         $user = User::factory()->create();
         $response = $this->actingAs($user)->delete("/labels/{$label->id}");
 
@@ -116,62 +127,83 @@ class LabelTest extends TestCase
 
     public function testLabelsCanBeAttachedToTask(): void
     {
+        /** @var TaskStatus $taskStatus */
         $taskStatus = TaskStatus::factory()->create();
+
+        /** @var User $user * */
         $user = User::factory()->create();
+
+        /** @var Task $task * */
         $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user->id]);
+
+        /** @var Collection|Label[] $labels */
         $labels = Label::factory()->count(3)->create();
 
-        $task->labels()->attach($labels->pluck('id')->toArray());   // @phpstan-ignore-line
+        $task->labels()->attach($labels->pluck('id')->toArray());
 
-        foreach ($labels as $label) {  // @phpstan-ignore-line
+        foreach ($labels as $label) {
+            /** @var Label $label */
             $this->assertDatabaseHas('label_task', [
                 'task_id' => $task->id,
-                'label_id' => $label->id,  // @phpstan-ignore-line
+                'label_id' => $label->id,
             ]);
         }
     }
 
     public function testLabelsCanBeDetachedFromTask(): void
     {
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create();
+        /** @var User $user * */
         $user = User::factory()->create();
+        /** @var Task $task * */
         $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user->id]);
+
+        /** @var Collection|Label[] $labels */
         $labels = Label::factory()->count(3)->create();
 
-        $task->labels()->attach($labels->pluck('id')->toArray());  // @phpstan-ignore-line
+        $task->labels()->attach($labels->pluck('id')->toArray());
 
-        $task->labels()->detach($labels->pluck('id')->toArray());  // @phpstan-ignore-line
+        $task->labels()->detach($labels->pluck('id')->toArray());
 
-        foreach ($labels as $label) {  // @phpstan-ignore-line
+        foreach ($labels as $label) {
             $this->assertDatabaseMissing('label_task', [
                 'task_id' => $task->id,
-                'label_id' => $label->id,  // @phpstan-ignore-line
+                'label_id' => $label->id,
             ]);
         }
     }
 
     public function testTaskCanHaveLabels(): void
     {
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create();
+        /** @var User $user * */
         $user = User::factory()->create();
+        /** @var Task $task * */
         $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user->id]);
+        /** @var Label $label */
         $label = Label::factory()->create();
 
-        $task->labels()->attach($label->id);  // @phpstan-ignore-line
+        $task->labels()->attach($label->id);
 
-        $this->assertTrue($task->labels->contains($label->id));  // @phpstan-ignore-line
+        $this->assertTrue($task->labels->contains($label->id));
     }
 
     public function testCascadeDelete(): void
     {
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create();
+        /** @var User $user * */
         $user = User::factory()->create();
+        /** @var Task $task * */
         $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user->id]);
+        /** @var Label $label */
         $label = Label::factory()->create();
 
-        $task->labels()->attach($label->id);  // @phpstan-ignore-line
+        $task->labels()->attach($label->id);
 
-        $task->delete();  // @phpstan-ignore-line
+        $task->delete();
 
         $this->assertDatabaseMissing('label_task', [
             'task_id' => $task->id,
@@ -181,12 +213,16 @@ class LabelTest extends TestCase
 
     public function testLabelCantBeDeletedIfUsed(): void
     {
+        /** @var TaskStatus $taskStatus * */
         $taskStatus = TaskStatus::factory()->create();
+        /** @var User $user * */
         $user = User::factory()->create();
+        /** @var Task $task * */
         $task = Task::factory()->create(['status_id' => $taskStatus->id, 'created_by_id' => $user->id]);
+        /** @var Label $label */
         $label = Label::factory()->create();
 
-        $task->labels()->attach($label->id);  // @phpstan-ignore-line
+        $task->labels()->attach($label->id);
 
         $response = $this->actingAs($user)->delete(route('labels.destroy', $label->id));
 
