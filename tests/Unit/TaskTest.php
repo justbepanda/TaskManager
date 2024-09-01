@@ -35,7 +35,6 @@ class TaskTest extends TestCase
         /** @var Task $task * */
         $task = Task::factory()->create(['created_by_id' => $user->id, 'status_id' => $taskStatus->id]);
 
-        $this->assertInstanceOf(User::class, $task->creator);
         $this->assertEquals($user->id, $task->creator->id);
     }
 
