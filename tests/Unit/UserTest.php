@@ -14,18 +14,24 @@ class UserTest extends TestCase
 
     public function testCreatedTasks(): void
     {
-        /** @var User $user **/ $user = User::factory()->create();
-        /** @var TaskStatus $taskStatus **/ $taskStatus = TaskStatus::factory()->create();
-        /** @var Task $task **/ $task = Task::factory()->create(['created_by_id' => $user->id, 'status_id' => $taskStatus->id]);
+        /** @var User $user * */
+        $user = User::factory()->create();
+        /** @var TaskStatus $taskStatus * */
+        $taskStatus = TaskStatus::factory()->create();
+        /** @var Task $task * */
+        $task = Task::factory()->create(['created_by_id' => $user->id, 'status_id' => $taskStatus->id]);
 
         $this->assertTrue($user->createdTasks->contains($task));
     }
 
     public function testAssignedTasks(): void
     {
-        /** @var User $user **/ $user = User::factory()->create();
-        /** @var TaskStatus $taskStatus **/ $taskStatus = TaskStatus::factory()->create();
-        /** @var Task $task **/ $task = Task::factory()->create(['status_id' => $taskStatus->id, 'assigned_to_id' => $user->id]);
+        /** @var User $user * */
+        $user = User::factory()->create();
+        /** @var TaskStatus $taskStatus * */
+        $taskStatus = TaskStatus::factory()->create();
+        /** @var Task $task * */
+        $task = Task::factory()->create(['status_id' => $taskStatus->id, 'assigned_to_id' => $user->id]);
 
         $this->assertTrue($user->assignedTasks->contains($task));
     }
