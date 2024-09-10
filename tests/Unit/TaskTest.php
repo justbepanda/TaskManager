@@ -28,11 +28,11 @@ class TaskTest extends TestCase
 
     public function testCreator(): void
     {
-        /** @var User $user * */
+        /** @var User $user */
         $user = User::factory()->create();
-        /** @var TaskStatus $taskStatus * */
+        /** @var TaskStatus $taskStatus */
         $taskStatus = TaskStatus::factory()->create();
-        /** @var Task $task * */
+        /** @var Task $task */
         $task = Task::factory()->create(['created_by_id' => $user->id, 'status_id' => $taskStatus->id]);
 
         $this->assertEquals($user->id, $task->creator->id);
